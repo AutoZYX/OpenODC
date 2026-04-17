@@ -1,0 +1,88 @@
+{
+  "id": "baidu-apollogo-wuhan",
+  "spec_version": "0.1.0",
+  "spec_source": "GB/T 45312-2025",
+  "vendor": "百度 Apollo",
+  "vendor_en": "Baidu Apollo",
+  "model": "萝卜快跑 Apollo RT6（第 6 代，含部分传承车型）",
+  "model_en": "Apollo Go — Apollo RT6 (Gen 6)",
+  "function_name": "L4 无人驾驶出租车（武汉示范运营）",
+  "function_name_en": "L4 Robotaxi (Wuhan commercial operation)",
+  "ads_level": 4,
+  "software_version": "Apollo 2024 Day 发布栈（1200 TOPS，38 传感器融合）",
+  "hardware_config": "RT6：激光雷达 + 摄像头 + 毫米波雷达多模态融合；HD 地图",
+  "effective_date": "2024-07-01",
+
+  "elements": [
+    {"element_id": "odd.road.type.area", "requirement": "permitted", "description": "武汉地理围栏运营区（约 3000 km²，覆盖武汉经开区/武昌/汉阳/硚口/东西湖/蔡甸/洪山/江夏）"},
+    {"element_id": "odd.road.type.urban_road.expressway", "requirement": "permitted", "description": "围栏内城市快速路（含过江通道）"},
+    {"element_id": "odd.road.type.urban_road.arterial", "requirement": "permitted"},
+    {"element_id": "odd.road.type.urban_road.sub_arterial", "requirement": "permitted"},
+    {"element_id": "odd.road.type.urban_road.branch", "requirement": "not_permitted", "description": "支路与居住小区内部未开放", "exit_behavior": "suppress_and_exit"},
+    {"element_id": "odd.road.type.highway.expressway", "requirement": "permitted", "description": "围栏内部分高速路段，限速 70-80 km/h"},
+    {"element_id": "odd.road.type.rural", "requirement": "not_permitted", "exit_behavior": "suppress_and_exit"},
+
+    {"element_id": "odd.road.surface.type.paved", "requirement": "permitted"},
+    {"element_id": "odd.road.surface.type.unpaved", "requirement": "not_permitted", "exit_behavior": "suppress_and_exit"},
+
+    {"element_id": "odd.road.geometry.plane.straight", "requirement": "permitted"},
+    {"element_id": "odd.road.geometry.plane.curve", "requirement": "permitted", "parameter_range": "曲率半径 ≥ 30 m（HD 地图 + 多模态感知支持小弯道）"},
+    {"element_id": "odd.road.geometry.profile.uphill", "requirement": "permitted", "parameter_range": "坡度 ≤ 10%"},
+    {"element_id": "odd.road.geometry.profile.downhill", "requirement": "permitted", "parameter_range": "坡度 ≤ 10%"},
+
+    {"element_id": "odd.road.lane.marking.absent", "requirement": "permitted", "description": "依赖 HD 地图，支持无标线路段"},
+    {"element_id": "odd.road.lane.type.motor", "requirement": "permitted"},
+    {"element_id": "odd.road.lane.type.bus", "requirement": "not_permitted", "exit_behavior": "suppress_activation"},
+    {"element_id": "odd.road.lane.type.emergency", "requirement": "not_permitted", "exit_behavior": "suppress_activation"},
+
+    {"element_id": "odd.road.intersection.at_grade", "requirement": "permitted", "description": "信号灯十字路口（含无保护左转），依赖 V2I 增强"},
+    {"element_id": "odd.road.intersection.roundabout.normal", "requirement": "permitted"},
+    {"element_id": "odd.road.intersection.ramp", "requirement": "permitted", "description": "围栏内匝道"},
+
+    {"element_id": "odd.infrastructure.special.tunnel", "requirement": "permitted", "description": "支持过江隧道（武汉长江隧道等）"},
+    {"element_id": "odd.infrastructure.special.bridge", "requirement": "permitted", "description": "支持过江大桥"},
+    {"element_id": "odd.infrastructure.special.crosswalk", "requirement": "permitted", "description": "识别人行横道并让行"},
+    {"element_id": "odd.infrastructure.special.speed_bump", "requirement": "permitted"},
+    {"element_id": "odd.infrastructure.special.railway_crossing", "requirement": "not_permitted", "exit_behavior": "suppress_and_exit"},
+    {"element_id": "odd.infrastructure.traffic_control.signal", "requirement": "permitted", "description": "V2I 信号灯通信增强"},
+    {"element_id": "odd.infrastructure.traffic_control.sign", "requirement": "permitted"},
+    {"element_id": "odd.infrastructure.temporary.construction", "requirement": "permitted", "description": "施工区绕行（有限支持，异常时远程接管）"},
+
+    {"element_id": "odd.targets.motor_vehicle", "requirement": "permitted"},
+    {"element_id": "odd.targets.non_motor_vehicle", "requirement": "permitted", "description": "自行车、电动车（中国城市混合交通必需）"},
+    {"element_id": "odd.targets.pedestrian", "requirement": "permitted"},
+    {"element_id": "odd.targets.animal", "requirement": "permitted"},
+    {"element_id": "odd.targets.obstacle", "requirement": "permitted", "description": "锥桶、路障识别"},
+
+    {"element_id": "odd.weather.particles.fog", "requirement": "permitted", "description": "一般雾可用；黄色预警级浓雾触发暂停服务", "parameter_range": "visibility > 200 m"},
+    {"element_id": "odd.weather.atmospheric.rain", "requirement": "permitted", "description": "中雨以下可用；暴雨 / 红色预警触发暂停服务（监管要求）", "parameter_range": "降雨量 ≤ 29.9 mm/h"},
+    {"element_id": "odd.weather.atmospheric.snow.snowfall", "requirement": "not_permitted", "description": "暴雪触发服务暂停", "exit_behavior": "suppress_activation"},
+    {"element_id": "odd.weather.lighting.natural", "requirement": "permitted"},
+    {"element_id": "odd.weather.lighting.streetlight", "requirement": "permitted"},
+    {"element_id": "odd.weather.lighting.headlight", "requirement": "permitted", "description": "24 小时运营已在部分区域开通"},
+
+    {"element_id": "odd.digital.wireless.v2i", "requirement": "permitted", "description": "V2I 信号灯通信"},
+    {"element_id": "odd.digital.wireless.v2v", "requirement": "permitted"},
+    {"element_id": "odd.digital.position.gnss", "requirement": "permitted", "description": "BDS + GPS 组合定位"},
+    {"element_id": "odd.digital.position.rtk", "requirement": "permitted", "description": "RTK 高精度定位"},
+
+    {"element_id": "vehicle.motion.speed.activation", "requirement": "permitted", "parameter_range": "0 km/h ~ 80 km/h"},
+    {"element_id": "vehicle.motion.speed.operating", "requirement": "permitted", "parameter_range": "0 km/h ~ 80 km/h"},
+
+    {"element_id": "vehicle.ads_state", "requirement": "permitted", "description": "HD 地图、多传感器健康、远程监控连接均正常；任一异常则返回最近停靠点或远程接管"}
+  ],
+
+  "metadata": {
+    "submitted_by": "openodc-community",
+    "submitted_at": "2026-04-17T10:00:00Z",
+    "review_status": "draft",
+    "sources": [
+      "萝卜快跑武汉运营区域 - 本地宝: http://wh.bendibao.com/traffic/2024716/181276.shtm",
+      "TMTPOST - 3000 sqkm geofence, 70-80 km/h highway segments: https://en.tmtpost.com/post/7246299",
+      "维基百科 - 萝卜快跑 (含暴雨暂停条款): https://zh.wikipedia.org/wiki/%E8%90%9D%E5%8D%9C%E5%BF%AB%E8%B7%91",
+      "Apollo Day 2024 - RT6 技术栈解析 (EDN China): https://www.ednchina.com/technews/29056.html",
+      "量子位 2025-05 - 无司机运营数据: https://www.qbitai.com/2025/05/286893.html"
+    ],
+    "notes": "基于公开运营公告、监管备案、媒体深度报道的社区反推。置信度：地理围栏 + 天气暂停规则 HIGH；运营速度范围 MEDIUM；几何/温度量化参数 LOW（Apollo 不发布数值 ODD）。24 小时运营已在部分区域开通，不覆盖全 3000 km² 围栏。"
+  }
+}

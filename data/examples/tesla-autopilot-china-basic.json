@@ -1,0 +1,79 @@
+{
+  "id": "tesla-autopilot-china-basic",
+  "spec_version": "0.1.0",
+  "spec_source": "GB/T 45312-2025",
+  "vendor": "特斯拉",
+  "vendor_en": "Tesla",
+  "model": "Model 3 / Model Y（中国市场标配 AP）",
+  "model_en": "Model 3 / Y (China — Basic AP standard)",
+  "function_name": "基础版 Autopilot（自适应巡航 + 车道保持辅助，中国市场）",
+  "function_name_en": "Basic Autopilot (TACC + Autosteer, China)",
+  "ads_level": 2,
+  "software_version": "2025.x（基础 AP 栈，不含 FSD 能力）",
+  "hardware_config": "HW3 / HW4，纯视觉",
+  "effective_date": "2025-01-01",
+
+  "elements": [
+    {"element_id": "odd.road.type.urban_road.expressway", "requirement": "permitted", "description": "城市快速路（主要使用场景）"},
+    {"element_id": "odd.road.type.urban_road.arterial", "requirement": "not_permitted", "description": "主干路需驾驶员手动操作，基础 AP 不支持城市道路自主驾驶", "exit_behavior": "suppress_and_exit"},
+    {"element_id": "odd.road.type.urban_road.sub_arterial", "requirement": "not_permitted", "exit_behavior": "suppress_and_exit"},
+    {"element_id": "odd.road.type.urban_road.branch", "requirement": "not_permitted", "exit_behavior": "suppress_and_exit"},
+    {"element_id": "odd.road.type.highway.expressway", "requirement": "permitted"},
+    {"element_id": "odd.road.type.highway.class_1", "requirement": "permitted"},
+    {"element_id": "odd.road.type.highway.class_2", "requirement": "not_permitted", "description": "二级公路不在设计范围", "exit_behavior": "suppress_and_exit"},
+    {"element_id": "odd.road.type.rural", "requirement": "not_permitted", "exit_behavior": "suppress_and_exit"},
+    {"element_id": "odd.road.type.parking_indoor", "requirement": "not_permitted", "description": "基础 AP 不包含 Summon / Autopark", "exit_behavior": "suppress_activation"},
+    {"element_id": "odd.road.type.parking_outdoor", "requirement": "not_permitted", "exit_behavior": "suppress_activation"},
+
+    {"element_id": "odd.road.surface.type.paved", "requirement": "permitted"},
+    {"element_id": "odd.road.surface.type.unpaved", "requirement": "not_permitted", "exit_behavior": "trigger_exit"},
+
+    {"element_id": "odd.road.geometry.plane.straight", "requirement": "permitted"},
+    {"element_id": "odd.road.geometry.plane.curve", "requirement": "permitted", "parameter_range": "曲率半径 ≥ 150 m（经验推断）"},
+    {"element_id": "odd.road.geometry.profile.uphill", "requirement": "permitted"},
+    {"element_id": "odd.road.geometry.profile.downhill", "requirement": "permitted"},
+
+    {"element_id": "odd.road.lane.marking.absent", "requirement": "not_permitted", "description": "必须有清晰车道标线；标线缺失时降级为跟车", "exit_behavior": "suppress_and_exit"},
+    {"element_id": "odd.road.lane.type.motor", "requirement": "permitted"},
+    {"element_id": "odd.road.lane.type.exit", "requirement": "not_permitted", "description": "基础 AP 不含 Navigate on Autopilot，不自动识别出入口", "exit_behavior": "suppress_activation"},
+    {"element_id": "odd.road.lane.type.entrance", "requirement": "not_permitted", "exit_behavior": "suppress_activation"},
+    {"element_id": "odd.road.lane.type.emergency", "requirement": "not_permitted", "exit_behavior": "suppress_activation"},
+
+    {"element_id": "odd.road.intersection.at_grade", "requirement": "not_permitted", "description": "平面交叉口超出设计范围", "exit_behavior": "suppress_and_exit"},
+    {"element_id": "odd.road.intersection.ramp", "requirement": "not_permitted", "description": "匝道需驾驶员手动", "exit_behavior": "suppress_and_exit"},
+
+    {"element_id": "odd.infrastructure.special.tunnel", "requirement": "permitted", "description": "隧道内可继续运行，但摄像头适应期可能降级"},
+    {"element_id": "odd.infrastructure.special.toll_station", "requirement": "not_permitted", "description": "收费站需驾驶员接管", "exit_behavior": "suppress_and_exit"},
+    {"element_id": "odd.infrastructure.traffic_control.signal", "requirement": "not_permitted", "description": "基础 AP 不识别信号灯", "exit_behavior": "suppress_and_exit"},
+
+    {"element_id": "odd.targets.motor_vehicle", "requirement": "permitted", "description": "TACC 跟随前方车辆"},
+    {"element_id": "odd.targets.non_motor_vehicle", "requirement": "not_permitted", "description": "基础 AEB 可识别，但非 AP 主设计目标", "exit_behavior": "trigger_exit"},
+    {"element_id": "odd.targets.pedestrian", "requirement": "not_permitted", "description": "AEB 可识别，AP 不主动让行", "exit_behavior": "trigger_exit"},
+
+    {"element_id": "odd.weather.particles.fog", "requirement": "permitted", "description": "轻雾可用", "parameter_range": "visibility > 200 m"},
+    {"element_id": "odd.weather.atmospheric.rain", "requirement": "permitted", "description": "中等以下降雨可用；暴雨性能下降"},
+    {"element_id": "odd.weather.atmospheric.snow.snowfall", "requirement": "not_permitted", "exit_behavior": "suppress_and_exit"},
+    {"element_id": "odd.weather.lighting.natural", "requirement": "permitted"},
+    {"element_id": "odd.weather.lighting.streetlight", "requirement": "permitted"},
+    {"element_id": "odd.weather.lighting.headlight", "requirement": "permitted"},
+
+    {"element_id": "vehicle.motion.speed.activation", "requirement": "permitted", "parameter_range": "0 km/h ~ 150 km/h（TACC 跟停再起步）"},
+    {"element_id": "vehicle.motion.speed.operating", "requirement": "permitted", "parameter_range": "0 km/h ~ 150 km/h"},
+
+    {"element_id": "personnel.driver.takeover.attention", "requirement": "permitted", "description": "须持续注视前方，方向盘扭矩检测 + Cabin Camera DMS"},
+    {"element_id": "personnel.driver.seatbelt", "requirement": "permitted"}
+  ],
+
+  "metadata": {
+    "submitted_by": "openodc-community",
+    "submitted_at": "2026-04-17T10:00:00Z",
+    "review_status": "draft",
+    "sources": [
+      "特斯拉中国官网 - Autopilot 介绍: https://www.tesla.cn/support/autopilot",
+      "Tesla Owner's Manual Model Y (CN): https://www.tesla.cn/ownersmanual/modely/zh_cn/",
+      "Tesla FSD 中国 2025-02 部分推送（仅影响 FSD 用户，基础 AP 不变）",
+      "CnEVPost - Tesla FSD China approval timeline: https://cnevpost.com/2025/11/07/china-to-fully-approve-tesla-fsd-early-2026/"
+    ],
+    "notes": "描述的是中国市场 Tesla 车主标配的【基础 Autopilot】，不是已购买 FSD 的用户。功能仅限高速自适应巡航 + 车道保持。置信度：功能边界 HIGH；速度范围 MEDIUM；天气量化 LOW。与美国 FSD 版差异显著，是本样例库对比的重点。"
+  }
+}

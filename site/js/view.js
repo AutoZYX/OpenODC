@@ -31,9 +31,8 @@ function renderCurrent() {
   containerEl.innerHTML = ''
   switch (currentView) {
     case 'dev': renderDev(); break
-    case 'test': renderTest(); break
-    case 'regulator': renderRegulator(); break
     case 'consumer': renderConsumer(); break
+    default: renderDev()
   }
 }
 
@@ -94,124 +93,6 @@ function renderDev() {
   pre.textContent = JSON.stringify(currentDoc, null, 2)
   jsonBlock.appendChild(pre)
   wrap.appendChild(jsonBlock)
-
-  containerEl.appendChild(wrap)
-}
-
-// ---- Tester view: scenario sampling grid ----
-function renderTest() {
-  const wrap = el('div', { class: 'test-view' })
-  wrap.appendChild(el('p', { class: 'view-intro' }, '场景生成清单：每条「允许」元素 + 参数范围作为测试维度。可导出用于仿真平台或封闭场地测试编排。'))
-
-  const permitted = currentDoc.elements.filter(e => e.requirement === 'permitted')
-  const withRange = permitted.filter(e => e.parameter_range)
-  const withoutRange = permitted.filter(e => !e.parameter_range)
-
-  const summary = el('div', { class: 'test-summary' }, [
-    el('div', { class: 'stat-box' }, [el('strong', {}, String(permitted.length)), el('span', {}, '允许元素')]),
-    el('div', { class: 'stat-box' }, [el('strong', {}, String(withRange.length)), el('span', {}, '含参数范围')]),
-    el('div', { class: 'stat-box' }, [el('strong', {}, String(withoutRange.length)), el('span', {}, '无定量范围')])
-  ])
-  wrap.appendChild(summary)
-
-  if (withRange.length) {
-    const block = el('div', { class: 'cat-block' })
-    block.appendChild(el('h2', { class: 'cat-title' }, '量化测试维度'))
-    const table = el('table', { class: 'odc-table' })
-    table.appendChild(el('thead', {}, el('tr', {}, [
-      el('th', {}, '元素'),
-      el('th', {}, '参数范围'),
-      el('th', {}, '建议采样点 (P5/P25/P50/P75/P95)')
-    ])))
-    const tbody = el('tbody')
-    for (const e of withRange) {
-      const meta = currentIndex.get(e.element_id)
-      tbody.appendChild(el('tr', {}, [
-        el('td', {}, meta?.name_zh || e.element_id),
-        el('td', {}, e.parameter_range),
-        el('td', { class: 'sampling-cell' }, suggestSampling(e.parameter_range))
-      ]))
-    }
-    table.appendChild(tbody)
-    block.appendChild(table)
-    wrap.appendChild(block)
-  }
-
-  if (withoutRange.length) {
-    const block = el('div', { class: 'cat-block' })
-    block.appendChild(el('h2', { class: 'cat-title' }, '离散允许元素'))
-    const list = el('ul', { class: 'discrete-list' })
-    for (const e of withoutRange) {
-      const meta = currentIndex.get(e.element_id)
-      list.appendChild(el('li', {}, (meta?.name_zh || e.element_id) + (e.description ? ' — ' + e.description : '')))
-    }
-    block.appendChild(list)
-    wrap.appendChild(block)
-  }
-
-  containerEl.appendChild(wrap)
-}
-
-// Try to extract numeric bounds from a range string and propose 5 sample points
-function suggestSampling(range) {
-  if (!range) return '—'
-  // Look for patterns like "≥ 150 m", "≤ 6%", "3 m < x < 4.5 m", "-20°C to 45°C", "200m < visibility <= 500m"
-  const numbers = [...range.matchAll(/-?\d+(?:\.\d+)?/g)].map(m => parseFloat(m[0]))
-  if (numbers.length === 0) return '需要人工指定'
-  if (numbers.length === 1) {
-    if (range.includes('≤') || range.includes('<')) return `0 → ${numbers[0]}`
-    if (range.includes('≥') || range.includes('>')) return `${numbers[0]} → ${numbers[0] * 2}`
-    return String(numbers[0])
-  }
-  const [lo, hi] = numbers.length >= 2 ? [Math.min(...numbers), Math.max(...numbers)] : [numbers[0], numbers[0]]
-  const span = hi - lo
-  return `${lo} · ${(lo + span * 0.25).toFixed(1)} · ${(lo + span * 0.5).toFixed(1)} · ${(lo + span * 0.75).toFixed(1)} · ${hi}`
-}
-
-// ---- Regulator view: compliance gap matrix ----
-function renderRegulator() {
-  const wrap = el('div', { class: 'regulator-view' })
-  wrap.appendChild(el('p', { class: 'view-intro' }, '合规对照：标准定义的全部元素 vs 厂家本份声明覆盖范围。红色为标准要求但厂家未声明的元素 (gap)。'))
-
-  const declared = new Set(currentDoc.elements.map(e => e.element_id))
-  let totalCount = 0, declaredCount = 0
-  const groups = []
-
-  for (const cat of currentCatalog.categories) {
-    const allEls = cat.elements
-    const inDoc = allEls.filter(el => declared.has(el.id))
-    const missing = allEls.filter(el => !declared.has(el.id))
-    totalCount += allEls.length
-    declaredCount += inDoc.length
-    groups.push({ cat, total: allEls.length, declared: inDoc.length, missing })
-  }
-
-  const overall = el('div', { class: 'compliance-overall' }, [
-    el('div', { class: 'stat-box' }, [el('strong', {}, `${declaredCount} / ${totalCount}`), el('span', {}, '元素声明覆盖率')]),
-    el('div', { class: 'stat-box' }, [el('strong', {}, `${(100 * declaredCount / totalCount).toFixed(1)}%`), el('span', {}, '覆盖比例')]),
-    el('div', { class: 'stat-box' }, [el('strong', {}, String(currentDoc.associations?.length || 0)), el('span', {}, '关联关系约束')])
-  ])
-  wrap.appendChild(overall)
-
-  for (const g of groups) {
-    const block = el('div', { class: 'cat-block' })
-    const ratio = `${g.declared} / ${g.total}`
-    block.appendChild(el('h2', { class: 'cat-title' }, [g.cat.name_zh, el('span', { class: 'cat-ratio' }, ratio)]))
-    if (g.missing.length === 0) {
-      block.appendChild(el('p', { class: 'compliance-clean' }, '✓ 该类别下所有元素均已声明'))
-    } else {
-      block.appendChild(el('p', { class: 'compliance-gap-label' }, `未声明的元素 (${g.missing.length})：`))
-      const list = el('ul', { class: 'gap-list' })
-      for (const m of g.missing) {
-        list.appendChild(el('li', {}, [
-          el('span', { class: 'gap-name' }, m.name_zh),
-          el('span', { class: 'gap-section' }, ' §' + m.spec_section)
-        ]))
-      }
-      block.appendChild(list)
-    }
-    wrap.appendChild(block)
-  }
 
   containerEl.appendChild(wrap)
 }

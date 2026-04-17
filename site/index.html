@@ -54,34 +54,34 @@
         </p>
 
         <div class="card-grid">
-          <a class="card card-action" href="https://github.com/AutoZYX/OpenODC/tree/main/schema" target="_blank" rel="noopener">
-            <h3>① ODC Schema</h3>
-            <p>把 GB/T 45312—2025 的 5 层级、144 个原子元素、所有量化分级表（风力 12 级、雨量 4 级、能见度 4 级等）转录为机器可读的 JSON Schema 与 TypeScript 类型。</p>
-            <p class="card-cta">查看 GitHub →</p>
-          </a>
-          <a class="card card-action" href="/editor.html">
-            <h3>② ODC Editor</h3>
-            <p>层级树勾选 + 参数范围输入 + 实时 JSON 预览。导出 JSON / Markdown / 复制到剪贴板 / 浏览器本地保存。基于浏览器，不需登录。</p>
-            <p class="card-cta">打开编辑器 →</p>
-          </a>
           <a class="card card-action" href="/gallery.html">
-            <h3>③ ODC Gallery</h3>
+            <h3>① ODC 样例库</h3>
             <p>公开 ODC 样例库 —— 按车型、功能、自动化等级筛选浏览。每条数据透明标注来源（厂家声明 / 社区反推 / 演示数据）。</p>
             <p class="card-cta">浏览样例 →</p>
           </a>
+          <a class="card card-action" href="/editor.html">
+            <h3>② ODC 编辑器</h3>
+            <p>层级树勾选 + 参数范围输入 + 实时 JSON 预览。导出 JSON / Markdown / 复制到剪贴板 / 浏览器本地保存。基于浏览器，不需登录。</p>
+            <p class="card-cta">打开编辑器 →</p>
+          </a>
           <a class="card card-action" href="/view.html?id=gb45312-appendix-a-l3-highway">
-            <h3>④ Multi-View Renderer</h3>
-            <p>同一份 ODC 数据，四种视图：开发者（完整 5 层级 + JSON）、测试（场景采样建议）、监管（合规对照与 gap）、消费者（能 / 不能用 + 风险卡片）。</p>
+            <h3>③ 多视图查看</h3>
+            <p>同一份 ODC 数据，两种视图：开发者（完整 5 层级 + JSON）、消费者（能 / 不能用 + 风险卡片）。</p>
             <p class="card-cta">查看示例 →</p>
           </a>
           <a class="card card-action" href="/compare.html">
-            <h3>⑤ Compare</h3>
+            <h3>④ ODC 对比</h3>
             <p>多车型 ODC 并排对比（2–4 个）。绿色 = 双方都允许，红色 = 双方都不允许，橙色 = 不一致。一眼看出能力边界差异。</p>
             <p class="card-cta">开始对比 →</p>
           </a>
+          <a class="card card-action" href="https://github.com/AutoZYX/OpenODC/tree/main/schema" target="_blank" rel="noopener">
+            <h3>⑤ ODC 数据规范</h3>
+            <p>整个平台的数据底座：把 GB/T 45312—2025 的 5 层级、144 个原子元素、所有量化分级表（风力 12 级、雨量 4 级、能见度 4 级等）转录为机器可读的 JSON Schema 与 TypeScript 类型。</p>
+            <p class="card-cta">查看 GitHub →</p>
+          </a>
           <article class="card card-disabled">
             <h3>⑥ 厂家直填</h3>
-            <p>OEM / AD 供应商账号注册后直接在线编辑、版本管理、签名发布。Supabase 后端，与社区版本互不覆盖。</p>
+            <p>OEM / Tier 1 账号注册后，在内部统一管理在研 / 预发布 / 已上市所有功能的 ODC 要素，支持项目组协作编辑、版本管理、签名发布。产品达到 SOP 阶段，该功能的 ODC 可一键推送至 OpenODC 公开样例库 —— 既满足内部研发协同，也为行业标准化做贡献。</p>
             <p class="card-meta">Phase 4 · 规划中</p>
           </article>
         </div>
@@ -102,9 +102,9 @@
           </div>
           <div>
             <h3>OpenODC 的定位</h3>
-            <p>不是要取代厂家自己的 ODC 文档系统，而是建立一个面向对外发布的标准化格式 + 公开样例库。</p>
-            <p>类比：caniuse.com 之于 web 浏览器特性。让设计运行条件变得可查、可比、可复用。</p>
-            <p>开放数据先行，等待 OEM 跟进。</p>
+            <p>不是要取代厂家自己的 ODC 文档系统。实际上，OEM 会在使用手册、车机教学里告诉用户"智驾什么时候能用、什么时候不能用"，不少车企写得还挺详细。</p>
+            <p>但每家都用自己的写法、自己的分类、自己的术语，没有统一规范 —— 消费者跨品牌换车要重新学一遍，监管和第三方机构想做横向对比，也找不到统一的抓手。</p>
+            <p>OpenODC 提供一个统一的、机器可读的标准化格式 + 公开样例库，让设计运行条件可查、可比、可复用。开放数据先行，等待 OEM 跟进。</p>
           </div>
         </div>
       </div>
@@ -119,7 +119,7 @@
           <li class="done">Phase 0：标准附录 A 的 L3 高速 ODC 示例完整转录为 JSON</li>
           <li class="done">Phase 1：<a href="/gallery.html">公开样例库 Gallery</a>（按等级 / 来源 / 关键词筛选）</li>
           <li class="done">Phase 1：<a href="/editor.html">Web 编辑器</a>（层级树勾选 + 实时 JSON + 多格式导出）</li>
-          <li class="done">Phase 2：<a href="/view.html?id=gb45312-appendix-a-l3-highway">四视图渲染</a>（开发者 / 测试 / 监管 / 消费者）</li>
+          <li class="done">Phase 2：<a href="/view.html?id=gb45312-appendix-a-l3-highway">双视图渲染</a>（开发者 / 消费者）</li>
           <li class="done">Phase 2：<a href="/compare.html">多车型对比 Compare</a>（diff 视图，2–4 个并排）</li>
           <li class="done">Phase 3：GitHub PR 模板 + CI 自动校验（ajv-cli + element_id 引用检查）</li>
           <li class="done">Apache 2.0 代码许可 + CC BY 4.0 数据许可</li>
@@ -164,7 +164,7 @@
             <h3>ROAM</h3>
             <p class="card-tag">事故出口端</p>
             <p>L4 Robotaxi 远程运营事故数据库 + 场景分类 + 参考架构。回答"出了什么问题"。</p>
-            <a href="https://github.com/AutoZYX/ROAM" target="_blank" rel="noopener">GitHub →</a>
+            <a href="https://autozyx.github.io/ROAM/" target="_blank" rel="noopener">官网 →</a>
           </article>
           <article class="card card-related card-current">
             <h3>OpenODC</h3>

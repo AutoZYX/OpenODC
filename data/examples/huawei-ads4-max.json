@@ -1,0 +1,91 @@
+{
+  "id": "huawei-ads4-max",
+  "spec_version": "0.1.0",
+  "spec_source": "GB/T 45312-2025",
+  "vendor": "华为",
+  "vendor_en": "Huawei",
+  "model": "搭载华为乾崑 ADS 4 Max 的车型（问界 M9 / M8、享界 S9、智界 R7 等）",
+  "model_en": "Vehicles with Huawei Qiankun ADS 4 Max (AITO M9/M8, Stelato S9, Luxeed R7, etc.)",
+  "function_name": "乾崑 ADS 4 Max — 全国城区 / 高速 NCA + 全场景泊车",
+  "function_name_en": "Qiankun ADS 4 Max — Nationwide Urban/Highway NCA + Full-scenario Parking",
+  "ads_level": 2,
+  "software_version": "ADS 4.0（2025-04-22 首发，随 OTA 持续迭代）",
+  "hardware_config": "ADS 4 Max：激光雷达 + 4D 成像雷达 + 分布式毫米波雷达 + 摄像头多模态融合",
+  "effective_date": "2025-04-22",
+
+  "elements": [
+    {"element_id": "odd.road.type.urban_road.expressway", "requirement": "permitted", "description": "城区 NCA 覆盖（全国可用）"},
+    {"element_id": "odd.road.type.urban_road.arterial", "requirement": "permitted", "description": "城区 NCA，支持无图路段"},
+    {"element_id": "odd.road.type.urban_road.sub_arterial", "requirement": "permitted"},
+    {"element_id": "odd.road.type.urban_road.branch", "requirement": "permitted", "description": "含小区内部道路（车位到车位）"},
+    {"element_id": "odd.road.type.highway.expressway", "requirement": "permitted"},
+    {"element_id": "odd.road.type.highway.class_1", "requirement": "permitted"},
+    {"element_id": "odd.road.type.highway.class_2", "requirement": "permitted"},
+    {"element_id": "odd.road.type.rural", "requirement": "permitted", "description": "国道、省道、县道、乡道覆盖（华为官方声称近 99% 路段）"},
+    {"element_id": "odd.road.type.parking_indoor", "requirement": "permitted", "description": "VPD 2.0 支持室内停车场跨层通行"},
+    {"element_id": "odd.road.type.parking_outdoor", "requirement": "permitted", "description": "全场景泊车（含极窄车位、临时锁车位绕行）"},
+
+    {"element_id": "odd.road.surface.type.paved", "requirement": "permitted"},
+    {"element_id": "odd.road.surface.type.unpaved", "requirement": "not_permitted", "description": "非铺装路面未明确支持", "exit_behavior": "trigger_exit"},
+
+    {"element_id": "odd.road.geometry.plane.straight", "requirement": "permitted"},
+    {"element_id": "odd.road.geometry.plane.curve", "requirement": "permitted"},
+    {"element_id": "odd.road.geometry.profile.uphill", "requirement": "permitted"},
+    {"element_id": "odd.road.geometry.profile.downhill", "requirement": "permitted"},
+
+    {"element_id": "odd.road.lane.marking.absent", "requirement": "permitted", "description": "支持无图 / 无清晰标线路段，CAS 4.0 辅助控制"},
+    {"element_id": "odd.road.lane.type.motor", "requirement": "permitted"},
+    {"element_id": "odd.road.lane.type.exit", "requirement": "permitted", "description": "高速 NCA 自动出入口"},
+    {"element_id": "odd.road.lane.type.entrance", "requirement": "permitted"},
+    {"element_id": "odd.road.lane.type.emergency", "requirement": "not_permitted", "exit_behavior": "suppress_activation"},
+
+    {"element_id": "odd.road.intersection.at_grade", "requirement": "permitted", "description": "信号灯十字路口，支持左右转让行"},
+    {"element_id": "odd.road.intersection.roundabout.normal", "requirement": "permitted"},
+    {"element_id": "odd.road.intersection.ramp", "requirement": "permitted"},
+    {"element_id": "odd.road.intersection.interchange.general", "requirement": "permitted"},
+
+    {"element_id": "odd.infrastructure.special.tunnel", "requirement": "permitted"},
+    {"element_id": "odd.infrastructure.special.toll_station", "requirement": "permitted", "description": "500m-1km 前自动减速通过"},
+    {"element_id": "odd.infrastructure.special.crosswalk", "requirement": "permitted", "description": "识别人行横道主动让行"},
+    {"element_id": "odd.infrastructure.special.speed_bump", "requirement": "permitted"},
+    {"element_id": "odd.infrastructure.special.railway_crossing", "requirement": "permitted", "description": "识别铁路道口"},
+    {"element_id": "odd.infrastructure.traffic_control.signal", "requirement": "permitted"},
+    {"element_id": "odd.infrastructure.traffic_control.sign", "requirement": "permitted"},
+    {"element_id": "odd.infrastructure.temporary.construction", "requirement": "permitted", "description": "施工区可识别并绕行（有限支持）"},
+
+    {"element_id": "odd.targets.motor_vehicle", "requirement": "permitted"},
+    {"element_id": "odd.targets.non_motor_vehicle", "requirement": "permitted"},
+    {"element_id": "odd.targets.pedestrian", "requirement": "permitted"},
+    {"element_id": "odd.targets.obstacle", "requirement": "permitted", "description": "激光雷达支持 3 cm 级障碍物识别；100 km/h 可识别 30 cm 障碍物"},
+    {"element_id": "odd.targets.animal", "requirement": "permitted", "description": "有限覆盖"},
+
+    {"element_id": "odd.weather.particles.fog", "requirement": "permitted", "description": "分布式毫米波雷达 + 4D 成像雷达在浓雾下仍可识别目标；AEB 触发至 90 km/h"},
+    {"element_id": "odd.weather.atmospheric.rain", "requirement": "permitted", "description": "暴雨下 mmWave 雷达保持约 98% 目标识别率；AEB 至 90 km/h"},
+    {"element_id": "odd.weather.atmospheric.snow.snowfall", "requirement": "permitted", "description": "支持但感知性能下降", "parameter_range": "小到中雪可用，暴雪退化"},
+    {"element_id": "odd.weather.atmospheric.snow.accumulation", "requirement": "not_permitted", "description": "道路积雪覆盖标线退化", "exit_behavior": "suppress_and_exit"},
+    {"element_id": "odd.weather.lighting.natural", "requirement": "permitted"},
+    {"element_id": "odd.weather.lighting.streetlight", "requirement": "permitted"},
+    {"element_id": "odd.weather.lighting.headlight", "requirement": "permitted"},
+    {"element_id": "odd.weather.lighting.indoor", "requirement": "permitted", "description": "室内停车场低光照支持（VPD 2.0）"},
+
+    {"element_id": "vehicle.motion.speed.activation", "requirement": "permitted", "parameter_range": "0 km/h ~ 130 km/h（紧急转向干预 40-120 km/h）"},
+    {"element_id": "vehicle.motion.speed.operating", "requirement": "permitted", "parameter_range": "0 km/h ~ 130 km/h，随限速标识自动调速"},
+
+    {"element_id": "personnel.driver.takeover.attention", "requirement": "permitted", "description": "L2 监督式：须持续监视路况，DMS + 方向盘扭矩检测"},
+    {"element_id": "personnel.driver.seatbelt", "requirement": "permitted"}
+  ],
+
+  "metadata": {
+    "submitted_by": "openodc-community",
+    "submitted_at": "2026-04-17T10:00:00Z",
+    "review_status": "draft",
+    "sources": [
+      "华为乾崑智驾官网: https://auto.huawei.com/cn/ads",
+      "ADS 4 发布会 2025-04-22 - 腾讯: https://news.qq.com/rain/a/20250422A08JMC00",
+      "ADS 4 四激光雷达 + 4D 雷达 - EET China: https://www.eet-china.com/mp/a398340.html",
+      "问界 M9 全系 ADS 4 OTA - IT之家: https://www.ithome.com/0/885/772.htm",
+      "Huawei ADS 4 May 2025 Update (AEB 90 km/h in rain/fog): https://www.huaweicentral.com/huawei-qiankun-ads-gets-may-2025-update-with-automatic-safety-features/"
+    ],
+    "notes": "Max 档是 ADS 4 主流配置（非 Ultra 档 L3）。Ultra 档新增高速 L3 能力（ODD 未公开量化），另做样例。置信度：功能列表 HIGH；AEB 量化阈值 MEDIUM-HIGH（官方披露）；道路几何量化 LOW。"
+  }
+}

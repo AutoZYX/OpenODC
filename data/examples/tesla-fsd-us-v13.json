@@ -1,0 +1,88 @@
+{
+  "id": "tesla-fsd-us-v13",
+  "spec_version": "0.1.0",
+  "spec_source": "GB/T 45312-2025",
+  "vendor": "特斯拉",
+  "vendor_en": "Tesla",
+  "model": "Model 3 / Model Y / Model S / Model X（HW3 或 HW4）",
+  "model_en": "Model 3 / Y / S / X (HW3 or HW4)",
+  "function_name": "FSD（Supervised）监督式全场景辅助驾驶 v13（美国市场）",
+  "function_name_en": "FSD (Supervised) v13 — US market",
+  "ads_level": 2,
+  "software_version": "FSD v13.x（2024-12 起）",
+  "hardware_config": "HW3 / HW4，纯视觉（8 摄像头）",
+  "effective_date": "2025-01-01",
+
+  "elements": [
+    {"element_id": "odd.road.type.urban_road.expressway", "requirement": "permitted", "description": "城市快速路"},
+    {"element_id": "odd.road.type.urban_road.arterial", "requirement": "permitted", "description": "城市主干路（v12 起支持城市道路端到端）"},
+    {"element_id": "odd.road.type.urban_road.sub_arterial", "requirement": "permitted"},
+    {"element_id": "odd.road.type.urban_road.branch", "requirement": "permitted", "description": "含居住小区内部道路"},
+    {"element_id": "odd.road.type.highway.expressway", "requirement": "permitted"},
+    {"element_id": "odd.road.type.highway.class_1", "requirement": "permitted"},
+    {"element_id": "odd.road.type.highway.class_2", "requirement": "permitted", "description": "美国州际与州道"},
+    {"element_id": "odd.road.type.rural", "requirement": "permitted", "description": "乡村道路（v13 表现提升）"},
+    {"element_id": "odd.road.type.parking_outdoor", "requirement": "permitted", "description": "Actually Smart Summon / Autopark 支持室外停车场"},
+    {"element_id": "odd.road.type.parking_indoor", "requirement": "permitted", "description": "室内停车场受信号覆盖限制"},
+
+    {"element_id": "odd.road.surface.type.paved", "requirement": "permitted"},
+    {"element_id": "odd.road.surface.type.unpaved", "requirement": "not_permitted", "description": "非铺装路面（土路、砂石路）感知退化", "exit_behavior": "trigger_exit"},
+
+    {"element_id": "odd.road.geometry.plane.straight", "requirement": "permitted"},
+    {"element_id": "odd.road.geometry.plane.curve", "requirement": "permitted", "description": "用户手册未量化，依车速自适应"},
+    {"element_id": "odd.road.geometry.profile.uphill", "requirement": "permitted"},
+    {"element_id": "odd.road.geometry.profile.downhill", "requirement": "permitted"},
+
+    {"element_id": "odd.road.lane.marking.absent", "requirement": "permitted", "description": "v12 起支持无标线路段（停车场、末端小路）"},
+    {"element_id": "odd.road.lane.type.motor", "requirement": "permitted"},
+    {"element_id": "odd.road.lane.type.exit", "requirement": "permitted"},
+    {"element_id": "odd.road.lane.type.entrance", "requirement": "permitted"},
+    {"element_id": "odd.road.lane.type.emergency", "requirement": "not_permitted", "description": "应急车道禁止行驶", "exit_behavior": "suppress_activation"},
+
+    {"element_id": "odd.road.intersection.at_grade", "requirement": "permitted", "description": "信号灯与 Stop Sign 十字路口；支持无保护左转"},
+    {"element_id": "odd.road.intersection.roundabout.normal", "requirement": "permitted"},
+    {"element_id": "odd.road.intersection.ramp", "requirement": "permitted"},
+    {"element_id": "odd.road.intersection.interchange.general", "requirement": "permitted"},
+
+    {"element_id": "odd.infrastructure.special.tunnel", "requirement": "permitted"},
+    {"element_id": "odd.infrastructure.special.toll_station", "requirement": "permitted", "description": "Navigate on Autopilot 支持高速出入口与收费站预减速"},
+    {"element_id": "odd.infrastructure.special.crosswalk", "requirement": "permitted", "description": "识别人行横道并主动让行"},
+    {"element_id": "odd.infrastructure.special.speed_bump", "requirement": "permitted"},
+    {"element_id": "odd.infrastructure.special.railway_crossing", "requirement": "permitted", "description": "识别铁路道口并停车等待"},
+    {"element_id": "odd.infrastructure.traffic_control.signal", "requirement": "permitted", "description": "识别信号灯（红/黄/绿）"},
+    {"element_id": "odd.infrastructure.traffic_control.sign", "requirement": "permitted", "description": "识别限速牌、Stop Sign、让行标志"},
+    {"element_id": "odd.infrastructure.temporary.construction", "requirement": "permitted", "description": "施工区可识别并减速通过（有限支持）"},
+
+    {"element_id": "odd.targets.motor_vehicle", "requirement": "permitted"},
+    {"element_id": "odd.targets.non_motor_vehicle", "requirement": "permitted", "description": "自行车、摩托车识别"},
+    {"element_id": "odd.targets.pedestrian", "requirement": "permitted"},
+    {"element_id": "odd.targets.animal", "requirement": "permitted", "description": "大型动物（鹿等）识别，小型动物覆盖有限"},
+
+    {"element_id": "odd.weather.particles.fog", "requirement": "permitted", "description": "轻雾可用；重雾纯视觉感知退化", "parameter_range": "visibility > 200 m（经验推断）"},
+    {"element_id": "odd.weather.atmospheric.rain", "requirement": "permitted", "description": "中等以下降雨可用；暴雨性能下降"},
+    {"element_id": "odd.weather.atmospheric.snow.snowfall", "requirement": "not_permitted", "description": "暴雪下纯视觉严重退化", "exit_behavior": "suppress_and_exit"},
+    {"element_id": "odd.weather.atmospheric.snow.accumulation", "requirement": "not_permitted", "description": "道路积雪覆盖标线不可用", "exit_behavior": "suppress_and_exit"},
+    {"element_id": "odd.weather.lighting.natural", "requirement": "permitted"},
+    {"element_id": "odd.weather.lighting.streetlight", "requirement": "permitted"},
+    {"element_id": "odd.weather.lighting.headlight", "requirement": "permitted", "description": "夜间依赖车辆灯光照明"},
+
+    {"element_id": "vehicle.motion.speed.activation", "requirement": "permitted", "parameter_range": "0 km/h ~ 137 km/h（85 mph，用户手册上限）"},
+    {"element_id": "vehicle.motion.speed.operating", "requirement": "permitted", "parameter_range": "0 km/h ~ 137 km/h"},
+
+    {"element_id": "personnel.driver.takeover.attention", "requirement": "permitted", "description": "Cabin Camera DMS 监视视线；v13.2.9 放宽短暂视线移开限制"},
+    {"element_id": "personnel.driver.seatbelt", "requirement": "permitted", "description": "须系安全带"}
+  ],
+
+  "metadata": {
+    "submitted_by": "openodc-community",
+    "submitted_at": "2026-04-17T10:00:00Z",
+    "review_status": "draft",
+    "sources": [
+      "Tesla Owner's Manual (Model Y US 2025-2026): https://www.tesla.com/ownersmanual/modely/en_us/",
+      "Tesla FSD v13 release notes (2024-12)",
+      "Wikipedia - Tesla Autopilot: https://en.wikipedia.org/wiki/Tesla_Autopilot",
+      "NotATeslaApp v13.2.9 DMS coverage: https://www.notateslaapp.com/news/2734/tesla-loosens-driver-monitoring-on-fsd-v1329"
+    ],
+    "notes": "基于公开用户手册、FSD 版本更新日志和第三方测试的社区反推。Tesla 官方不发布量化 ODD，所有数值参数为经验推断。置信度：道路类型与功能边界 HIGH；速度上限 MEDIUM；天气/几何量化 LOW。不代表 Tesla 官方声明。"
+  }
+}
