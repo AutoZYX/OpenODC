@@ -1,0 +1,48 @@
+name: Validate ODC schema and examples
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install validator
+        run: npm install --no-save ajv-cli
+
+      - name: Validate schema files
+        run: |
+          # Schema syntax check
+          node -e "JSON.parse(require('node:fs').readFileSync('schema/odc.schema.json', 'utf8'))"
+
+          # Validate each catalog file is loadable JSON
+          for f in schema/categories/*.json; do
+            echo "Checking $f"
+            node -e "JSON.parse(require('node:fs').readFileSync('$f', 'utf8'))"
+          done
+
+          # Validate enums
+          node -e "JSON.parse(require('node:fs').readFileSync('schema/enums/quantitative_scales.json', 'utf8'))"
+
+      - name: Validate every example document against schema
+        run: |
+          shopt -s nullglob
+          fail=0
+          for f in data/examples/*.json; do
+            echo "Validating $f"
+            npx ajv-cli validate -s schema/odc.schema.json -d "$f" || fail=1
+          done
+          exit $fail
+
+      - name: Verify element_id references exist in catalog
+        run: node tools/check-references.mjs

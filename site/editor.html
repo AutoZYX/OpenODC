@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>编辑器 — OpenODC</title>
+  <meta name="theme-color" content="#c85a3a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="/"><span class="brand-mark">OpenODC</span></a>
+      <div class="nav-links">
+        <a href="/gallery.html">样例库</a>
+        <a href="/compare.html">对比</a>
+        <a href="/editor.html" class="active">编辑器</a>
+        <a href="/#standard">标准对照</a>
+        <a class="lang-toggle" href="/en/">EN</a>
+        <a class="github-link" href="https://github.com/AutoZYX/OpenODC" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">ODC EDITOR</p>
+        <h1 class="page-title">ODC 编辑器</h1>
+        <p class="page-subtitle">基于 GB/T 45312—2025 创建标准化 ODC 声明。所有数据存储在浏览器本地，可导出 JSON 后通过 PR 提交。</p>
+      </div>
+    </section>
+
+    <section class="section editor-section">
+      <div class="container container-wide">
+
+        <details class="editor-meta-panel" open>
+          <summary>① 基础信息</summary>
+          <div class="meta-grid">
+            <label>厂家（中文）<input type="text" id="m-vendor" placeholder="比亚迪" /></label>
+            <label>厂家（英文）<input type="text" id="m-vendor_en" placeholder="BYD" /></label>
+            <label>车型<input type="text" id="m-model" placeholder="汉 EV 2026 款" /></label>
+            <label>车型英文<input type="text" id="m-model_en" placeholder="Han EV 2026" /></label>
+            <label>功能名称<input type="text" id="m-function_name" placeholder="DiPilot Highway" /></label>
+            <label>功能英文<input type="text" id="m-function_name_en" placeholder="DiPilot Highway" /></label>
+            <label>自动化等级
+              <select id="m-ads_level">
+                <option value="0">L0</option>
+                <option value="1">L1</option>
+                <option value="2" selected>L2</option>
+                <option value="3">L3</option>
+                <option value="4">L4</option>
+                <option value="5">L5</option>
+              </select>
+            </label>
+            <label>软件版本<input type="text" id="m-software_version" placeholder="OTA 2026.4" /></label>
+            <label>硬件配置<input type="text" id="m-hardware_config" placeholder="如：Orin-X" /></label>
+            <label>生效日期<input type="date" id="m-effective_date" /></label>
+            <label>提交人 (GitHub 用户名)<input type="text" id="m-submitted_by" placeholder="AutoZYX" /></label>
+            <label>审核状态
+              <select id="m-review_status">
+                <option value="draft" selected>草稿</option>
+                <option value="community_reviewed">社区审核</option>
+                <option value="vendor_confirmed">厂家确认</option>
+              </select>
+            </label>
+            <label class="meta-full">数据来源（一行一个 URL 或文献条目）<textarea id="m-sources" rows="3" placeholder="https://example.com/owner-manual.pdf&#10;C-NCAP 2025 测试报告"></textarea></label>
+          </div>
+        </details>
+
+        <details class="editor-help" open>
+          <summary>② 编辑步骤</summary>
+          <ol>
+            <li>从下方层级树中点击任意元素，即可加入声明并设置「允许 / 不允许」</li>
+            <li>"不允许"必须指定退出行为（抑制激活 / 触发退出 / 两者皆有）</li>
+            <li>「允许」时若有量化参数（速度、坡度、能见度等）请填入参数范围</li>
+            <li>右侧实时预览生成的 JSON。完成后下载 JSON / Markdown</li>
+            <li>把 JSON 文件放入 <code>data/examples/</code> 提交 PR 到 <a href="https://github.com/AutoZYX/OpenODC" target="_blank" rel="noopener">GitHub 仓库</a></li>
+          </ol>
+        </details>
+
+        <div class="editor-toolbar">
+          <button class="btn-link" id="t-load-example">载入附录 A 示例</button>
+          <button class="btn-link" id="t-clear">清空</button>
+          <button class="btn-link" id="t-save-local">保存到浏览器</button>
+          <button class="btn-link" id="t-load-local">从浏览器恢复</button>
+          <span class="toolbar-spacer"></span>
+          <button class="btn-link" id="t-download-json">下载 JSON</button>
+          <button class="btn-link" id="t-download-md">下载 Markdown</button>
+          <button class="btn-link" id="t-copy-json">复制 JSON</button>
+        </div>
+
+        <div class="editor-body">
+          <div class="editor-tree-pane">
+            <h3>③ 元素层级树</h3>
+            <input type="text" id="tree-search" placeholder="搜索元素…" class="tree-search" />
+            <div id="catalog-tree" class="catalog-tree">
+              <p class="loading">加载目录中…</p>
+            </div>
+          </div>
+
+          <div class="editor-selected-pane">
+            <h3>④ 已声明元素 <span class="el-count" id="selected-count">0</span></h3>
+            <div id="selected-list" class="selected-list">
+              <p class="empty-hint">还没有声明任何元素。从左侧层级树中点击元素加入。</p>
+            </div>
+          </div>
+
+          <div class="editor-preview-pane">
+            <h3>⑤ JSON 预览</h3>
+            <pre id="json-preview" class="json-preview"></pre>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-meta">
+        <p><strong>OpenODC v0.1.0</strong> · Apache 2.0 (代码) · CC BY 4.0 (数据)</p>
+        <p>维护者：<a href="https://autozyx.com" target="_blank" rel="noopener">张玉新</a> · 吉林大学</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/AutoZYX/OpenODC" target="_blank" rel="noopener">GitHub</a>
+        <a href="/en/">English</a>
+        <a href="https://github.com/AutoZYX/OpenODC/blob/main/ARCHITECTURE.md" target="_blank" rel="noopener">Architecture</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/editor.js"></script>
+</body>
+</html>

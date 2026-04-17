@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>样例库 — OpenODC</title>
+  <meta name="description" content="OpenODC 公开 ODC 样例库 — 按车型、功能、自动化等级浏览。" />
+  <meta name="theme-color" content="#c85a3a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="/"><span class="brand-mark">OpenODC</span></a>
+      <div class="nav-links">
+        <a href="/gallery.html" class="active">样例库</a>
+        <a href="/compare.html">对比</a>
+        <a href="/editor.html">编辑器</a>
+        <a href="/#standard">标准对照</a>
+        <a class="lang-toggle" href="/en/">EN</a>
+        <a class="github-link" href="https://github.com/AutoZYX/OpenODC" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">ODC GALLERY</p>
+        <h1 class="page-title">样例库</h1>
+        <p class="page-subtitle">浏览、对比、查询不同车型 / 功能 / 自动化等级的 ODC 声明。每条记录透明标注来源置信度。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="filter-bar">
+          <div class="filter-group">
+            <label>等级</label>
+            <select id="filter-level">
+              <option value="">全部</option>
+              <option value="0">L0</option>
+              <option value="1">L1</option>
+              <option value="2">L2</option>
+              <option value="3">L3</option>
+              <option value="4">L4</option>
+              <option value="5">L5</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>来源</label>
+            <select id="filter-status">
+              <option value="">全部</option>
+              <option value="vendor_confirmed">厂家确认</option>
+              <option value="community_reviewed">社区审核</option>
+              <option value="draft">草稿</option>
+            </select>
+          </div>
+          <div class="filter-group filter-search">
+            <label>搜索</label>
+            <input id="filter-search" type="text" placeholder="车型、厂家、功能关键词…" />
+          </div>
+          <div class="filter-meta" id="filter-count"></div>
+        </div>
+
+        <div id="gallery-grid" class="doc-grid">
+          <p class="loading">加载中…</p>
+        </div>
+
+        <div class="empty-cta" id="empty-cta" hidden>
+          <h3>没有匹配的 ODC 声明</h3>
+          <p>试试清空筛选条件，或 <a href="/editor.html">创建新声明</a>。</p>
+        </div>
+
+        <div class="contribute-cta">
+          <h3>贡献你的 ODC 声明</h3>
+          <p>使用 <a href="/editor.html">编辑器</a> 创建标准化 ODC，导出 JSON，提交 PR 加入样例库。详见 <a href="https://github.com/AutoZYX/OpenODC/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">贡献指南</a>。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-meta">
+        <p><strong>OpenODC v0.1.0</strong> · Apache 2.0 (代码) · CC BY 4.0 (数据)</p>
+        <p>维护者：<a href="https://autozyx.com" target="_blank" rel="noopener">张玉新</a> · 吉林大学</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/AutoZYX/OpenODC" target="_blank" rel="noopener">GitHub</a>
+        <a href="/en/">English</a>
+        <a href="https://github.com/AutoZYX/OpenODC/blob/main/ARCHITECTURE.md" target="_blank" rel="noopener">Architecture</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/gallery.js"></script>
+</body>
+</html>

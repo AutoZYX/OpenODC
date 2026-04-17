@@ -1,0 +1,68 @@
+{
+  "id": "demo-l2-highway-pilot",
+  "spec_version": "0.1.0",
+  "spec_source": "GB/T 45312-2025",
+  "vendor": "示例厂家 A",
+  "vendor_en": "Demo Vendor A",
+  "model": "示例车型（高速领航演示）",
+  "model_en": "Demo Model (Highway NoA)",
+  "function_name": "高速公路领航辅助（演示数据）",
+  "function_name_en": "Highway Pilot Assist (Demo Data)",
+  "ads_level": 2,
+  "software_version": null,
+  "hardware_config": null,
+  "effective_date": "2026-04-17",
+
+  "elements": [
+    {"element_id": "odd.road.type.urban_road.expressway", "requirement": "permitted", "description": "城市快速路"},
+    {"element_id": "odd.road.type.urban_road.arterial", "requirement": "not_permitted", "description": "城市主干路", "exit_behavior": "suppress_and_exit"},
+    {"element_id": "odd.road.type.urban_road.sub_arterial", "requirement": "not_permitted", "description": "次干路", "exit_behavior": "suppress_and_exit"},
+    {"element_id": "odd.road.type.urban_road.branch", "requirement": "not_permitted", "description": "支路", "exit_behavior": "suppress_and_exit"},
+
+    {"element_id": "odd.road.type.highway.expressway", "requirement": "permitted", "description": "高速公路"},
+    {"element_id": "odd.road.type.highway.class_1", "requirement": "permitted", "description": "一级公路"},
+    {"element_id": "odd.road.type.highway.class_2", "requirement": "not_permitted", "description": "二级公路", "exit_behavior": "suppress_and_exit"},
+
+    {"element_id": "odd.road.geometry.plane.straight", "requirement": "permitted"},
+    {"element_id": "odd.road.geometry.plane.curve", "requirement": "permitted", "parameter_range": "曲率半径 ≥ 100 m"},
+    {"element_id": "odd.road.geometry.profile.uphill", "requirement": "permitted", "parameter_range": "坡度 ≤ 8%"},
+    {"element_id": "odd.road.geometry.profile.downhill", "requirement": "permitted", "parameter_range": "坡度 ≤ 8%"},
+
+    {"element_id": "odd.road.lane.marking.absent", "requirement": "not_permitted", "exit_behavior": "suppress_and_exit"},
+    {"element_id": "odd.road.lane.type.motor", "requirement": "permitted"},
+    {"element_id": "odd.road.lane.type.exit", "requirement": "permitted", "description": "高速出口（部分车型支持）"},
+    {"element_id": "odd.road.lane.type.entrance", "requirement": "permitted", "description": "高速入口（部分车型支持）"},
+    {"element_id": "odd.road.lane.width", "requirement": "permitted", "parameter_range": "3.0 m < width < 4.0 m"},
+
+    {"element_id": "odd.road.intersection.ramp", "requirement": "permitted", "description": "支持匝道通行"},
+
+    {"element_id": "odd.infrastructure.special.tunnel", "requirement": "permitted"},
+    {"element_id": "odd.infrastructure.special.toll_station", "requirement": "not_permitted", "exit_behavior": "suppress_and_exit"},
+
+    {"element_id": "odd.targets.motor_vehicle", "requirement": "permitted"},
+    {"element_id": "odd.targets.non_motor_vehicle", "requirement": "not_permitted", "exit_behavior": "trigger_exit"},
+
+    {"element_id": "odd.weather.particles.fog", "requirement": "permitted", "description": "1 级", "parameter_range": "200m < visibility ≤ 500m"},
+    {"element_id": "odd.weather.atmospheric.rain", "requirement": "permitted", "description": "1 级", "parameter_range": "降雨量 ≤ 14.9 mm/h"},
+    {"element_id": "odd.weather.lighting.natural", "requirement": "permitted"},
+    {"element_id": "odd.weather.lighting.streetlight", "requirement": "permitted"},
+    {"element_id": "odd.weather.lighting.headlight", "requirement": "permitted"},
+
+    {"element_id": "vehicle.motion.speed.activation", "requirement": "permitted", "parameter_range": "60 km/h ~ 130 km/h"},
+    {"element_id": "vehicle.motion.speed.operating", "requirement": "permitted", "parameter_range": "0 km/h ~ 130 km/h"},
+
+    {"element_id": "personnel.driver.takeover.attention", "requirement": "permitted", "description": "驾驶员需保持注视前方，DMS 监测"},
+    {"element_id": "personnel.driver.seatbelt", "requirement": "permitted"}
+  ],
+
+  "metadata": {
+    "submitted_by": "openodc-bot",
+    "submitted_at": "2026-04-17T03:00:00Z",
+    "review_status": "draft",
+    "sources": [
+      "演示数据 / Demo data — 不代表任何特定车型的真实 ODC 声明，仅供 OpenODC 平台功能演示。",
+      "Demo data only — does not represent any specific vehicle's actual ODC declaration; for OpenODC functionality demonstration only."
+    ],
+    "notes": "演示用例：典型 L2 高速领航辅助 ODC 形态。所有数据为合理推断，未与任何 OEM 核实，请勿引用为真实 ODC 数据。"
+  }
+}

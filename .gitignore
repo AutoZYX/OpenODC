@@ -38,3 +38,7 @@ next-env.d.ts
 # Local notes
 NOTES.local.md
 TODO.local.md
+
+# Build-generated copies of schema/ and data/ (canonical sources are at repo root)
+site/schema/
+site/data/

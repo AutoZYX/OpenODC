@@ -1,6 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "outputDirectory": "site",
+  "buildCommand": "rm -rf site/schema site/data && cp -r schema site/schema && cp -r data site/data && node tools/build-manifest.mjs",
   "cleanUrls": true,
   "trailingSlash": false
 }
