@@ -21,12 +21,12 @@
     {
       "element_id": "odd.road.type.area",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[官方声明] 分档位区域限制：Max / Pro 城区 NCA 覆盖全国 337 个地级以上城市；SE 高速 NCA 覆盖全国高速约 98%。Ultra 档的高速 L3 仅在工信部首批 7 城（北京、上海、广州、深圳、合肥、武汉、重庆）试点且需法规条件满足。"
     },
     {
       "element_id": "odd.road.type.urban_road",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[官方声明] 华为乾崑 ADS 4 城区 NCA 覆盖快速路 / 主干 / 次干 / 支路；官方原文「覆盖城市通勤 90% 以上场景、乡道都能跑」。"
     },
     {
       "element_id": "odd.road.type.urban_road.expressway",
@@ -50,7 +50,7 @@
     {
       "element_id": "odd.road.type.highway",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[官方声明] 高速 NCA 覆盖全国高速约 98%，含高速、一级、二级；Ultra 档支持高速 L3 商用（2025 年 4 月发布）。"
     },
     {
       "element_id": "odd.road.type.highway.expressway",
@@ -125,7 +125,7 @@
     {
       "element_id": "odd.road.surface.quality.subsidence",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[推定] 路面沉陷未在手册 / 官方材料中单独分类。ADS 4 有路面自适应 AEB（动态调节刹车力度），但不做路面缺陷语义识别。行业默认：感知退化时降级到 AEB 兜底。"
     },
     {
       "element_id": "odd.road.surface.quality.pothole",
@@ -135,12 +135,12 @@
     {
       "element_id": "odd.road.surface.quality.shoving",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[推定] 路面拥包未在手册 / 官方材料中单独分类。同沉陷：ADS 感知退化时由 AEB 兜底，不做拥包语义识别。"
     },
     {
       "element_id": "odd.road.surface.quality.raveling",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[推定] 表面松散未在手册 / 官方材料中单独分类。同沉陷 / 拥包。"
     },
     {
       "element_id": "odd.road.surface.coverage",
@@ -238,7 +238,7 @@
     {
       "element_id": "odd.road.lane.type.mixed",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[官方声明] 城区 NCA 支持人车混行场景；官方表述「遇到路口左右转、旁车拥堵加塞、窄道通行、人车混行等复杂场景时，通行效率更高」。"
     },
     {
       "element_id": "odd.road.lane.type.bus",
@@ -248,8 +248,9 @@
     },
     {
       "element_id": "odd.road.lane.type.dedicated",
-      "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "requirement": "not_permitted",
+      "description": "[推定] 目前不识别专用车道语义。已知限制：第三方测评（42how / ADS 2.0 时代）记录过「偶尔会开进公交车道，可能导致罚单」，ADS 4 尚无专用车道语义识别的官方声明。",
+      "exit_behavior": "suppress_activation"
     },
     {
       "element_id": "odd.road.lane.type.tidal",
@@ -258,8 +259,9 @@
     },
     {
       "element_id": "odd.road.lane.type.escape",
-      "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "requirement": "not_permitted",
+      "description": "[推定] 避险车道为货车失控逃生设施，属于明显超出 ADS 设计范围（无乘用车用例）。",
+      "exit_behavior": "suppress_activation"
     },
     {
       "element_id": "odd.road.lane.type.emergency",
@@ -285,7 +287,7 @@
     {
       "element_id": "odd.road.lane.count",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[官方声明] 支持单车道及以上。官方原文「支持单车道、多车道、红绿灯的各种环岛」—— 单车道是最低要求。"
     },
     {
       "element_id": "odd.road.lane.width",
@@ -358,7 +360,7 @@
     {
       "element_id": "odd.road.intersection.roundabout.large",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[官方声明] 官方「支持各种环岛」隐含涵盖大环岛，无尺寸阈值公开。"
     },
     {
       "element_id": "odd.road.intersection.roundabout.double",
@@ -569,7 +571,7 @@
     {
       "element_id": "odd.weather.particles.smoke",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[推定] 烟幕未单独声明。手册原文「能见度较差请谨慎使用」；官方承认团雾仍是高速场景 1% 难例。等同低能见度场景处理，驾驶员接管。"
     },
     {
       "element_id": "odd.weather.lighting",
@@ -682,7 +684,7 @@
     {
       "element_id": "personnel.passenger.other",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[官方声明] 被动安全侧：2026 款问界 M9 新增 UWB 生命体监测（儿童 / 宠物遗留检测）+ 9 气囊 + 安全带未系提醒 + ISOFIX。ADS 激活本身不设乘客行为门槛。"
     },
     {
       "element_id": "vehicle.motion",

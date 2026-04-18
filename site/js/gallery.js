@@ -47,14 +47,15 @@ function card(d) {
   if (d.coverage && d.element_count) {
     const subst = d.coverage_substantive || 0
     const pct = Math.round((subst / d.element_count) * 100)
-    const covWrap = el('div', { class: 'doc-card-coverage', title: `手册/明确 ${d.coverage.manual + d.coverage.curated} · 推定 ${d.coverage.inferred} · 手册未涉及 ${d.coverage.gap} · 结构性 ${d.coverage.structural}` })
+    const officialManual = (d.coverage.manual || 0) + (d.coverage.official || 0) + (d.coverage.curated || 0)
+    const covWrap = el('div', { class: 'doc-card-coverage', title: `手册/官方 ${officialManual} · 推定 ${d.coverage.inferred} · 手册未涉及 ${d.coverage.gap} · 结构性 ${d.coverage.structural}` })
     covWrap.appendChild(el('div', { class: 'cov-label' }, [
       el('strong', {}, `${subst} / ${d.element_count}`),
       el('span', { class: 'cov-sub' }, ` 国标要素有数据（${pct}%）`)
     ]))
     const segBar = el('div', { class: 'cov-bar' })
     const segs = [
-      { cls: 'seg-manual', count: d.coverage.manual + d.coverage.curated },
+      { cls: 'seg-manual', count: officialManual },
       { cls: 'seg-inferred', count: d.coverage.inferred },
       { cls: 'seg-gap', count: d.coverage.gap },
       { cls: 'seg-structural', count: d.coverage.structural }

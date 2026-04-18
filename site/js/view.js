@@ -115,8 +115,9 @@ function renderConsumer() {
   const coverageStrip = el('div', { class: 'coverage-strip' })
   coverageStrip.appendChild(el('div', { class: 'coverage-strip-head' }, '该 ODC 对 GB/T 45312—2025 全部 ' + stats.total + ' 个国标要素的覆盖情况：'))
   const bar = el('div', { class: 'coverage-bar' })
-  const manual = stats.manual + stats.curated, inferred = stats.inferred, gap = stats.gap, structural = stats.structural
-  if (manual) bar.appendChild(el('span', { class: 'seg seg-manual', style: `flex:${manual}` }, '手册/明确 ' + manual))
+  const manual = stats.manual + stats.official + stats.curated
+  const inferred = stats.inferred, gap = stats.gap, structural = stats.structural
+  if (manual) bar.appendChild(el('span', { class: 'seg seg-manual', style: `flex:${manual}` }, '手册/官方 ' + manual))
   if (inferred) bar.appendChild(el('span', { class: 'seg seg-inferred', style: `flex:${inferred}` }, '推定 ' + inferred))
   if (gap) bar.appendChild(el('span', { class: 'seg seg-gap', style: `flex:${gap}` }, '手册未涉及 ' + gap))
   if (structural) bar.appendChild(el('span', { class: 'seg seg-structural', style: `flex:${structural}` }, '结构 ' + structural))
@@ -146,6 +147,7 @@ function classifyCoverage(description) {
   if (description.includes('[手册未涉及]')) return 'gap'
   if (description.includes('[结构性类别]')) return 'structural'
   if (description.includes('[手册明确]')) return 'manual'
+  if (description.includes('[官方声明]')) return 'official'
   if (description.includes('[推定]')) return 'inferred'
   return 'curated'
 }
@@ -222,6 +224,7 @@ function renderConsumerItem(it) {
   if (it.coverage === 'gap') head.appendChild(el('span', { class: 'coverage-tag tag-gap' }, '手册未涉及'))
   else if (it.coverage === 'structural') head.appendChild(el('span', { class: 'coverage-tag tag-structural' }, '结构性'))
   else if (it.coverage === 'manual') head.appendChild(el('span', { class: 'coverage-tag tag-manual' }, '手册明确'))
+  else if (it.coverage === 'official') head.appendChild(el('span', { class: 'coverage-tag tag-official' }, '官方声明'))
   else if (it.coverage === 'inferred') head.appendChild(el('span', { class: 'coverage-tag tag-inferred' }, '推定'))
   li.appendChild(head)
   if (it.description && it.coverage !== 'gap' && it.coverage !== 'structural') {

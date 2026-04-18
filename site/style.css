@@ -985,6 +985,7 @@ code {
 .tag-gap { background: #e6e2de; color: #6b645e; }
 .tag-structural { background: #f0e8df; color: #6a5640; }
 .tag-manual { background: #d4e6d4; color: #2d6a3a; }
+.tag-official { background: #c8dbe6; color: #27526b; }
 .tag-inferred { background: #f0e1c4; color: #8a6e1d; }
 .consumer-item.coverage-gap .item-name { color: var(--ink-mute); }
 .consumer-item.coverage-gap { opacity: 0.72; }
