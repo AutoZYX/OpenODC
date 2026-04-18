@@ -240,15 +240,21 @@ code {
 
 .hero-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  max-width: 880px;
+  max-width: 1120px;
   margin: 0 auto 2.2rem;
+}
+@media (max-width: 860px) {
+  .hero-stats { grid-template-columns: repeat(2, 1fr); max-width: 520px; }
+}
+@media (max-width: 460px) {
+  .hero-stats { grid-template-columns: 1fr; }
 }
 .hero-stat {
   text-decoration: none;
   color: inherit;
-  padding: 1.2rem 1rem 1rem;
+  padding: 1.3rem 1.2rem 1.1rem;
   background: var(--bg-card);
   border: 1px solid var(--line-soft);
   border-radius: 6px;
@@ -257,6 +263,7 @@ code {
   gap: 0.25rem;
   text-align: left;
   transition: border-color 0.15s ease, transform 0.15s ease;
+  min-width: 0;
 }
 .hero-stat:hover { border-color: var(--accent); transform: translateY(-2px); }
 .hero-stat .stat-num {
