@@ -1,17 +1,17 @@
 {
-  "id": "tesla-fsd-us-v13",
+  "id": "pony-ai-gen7-robotaxi",
   "spec_version": "0.1.0",
   "spec_source": "GB/T 45312-2025",
-  "vendor": "特斯拉",
-  "vendor_en": "Tesla",
-  "model": "Model 3 / Model Y / Model S / Model X（HW3 或 HW4）",
-  "model_en": "Model 3 / Y / S / X (HW3 or HW4)",
-  "function_name": "FSD（Supervised）监督式全场景辅助驾驶 v13（美国市场）",
-  "function_name_en": "FSD (Supervised) v13 — US market",
-  "ads_level": 2,
-  "software_version": "FSD v13.x（2024-12 起）",
-  "hardware_config": "HW3 / HW4，纯视觉（8 摄像头）",
-  "effective_date": "2025-01-01",
+  "vendor": "小马智行",
+  "vendor_en": "Pony.ai",
+  "model": "第七代 Robotaxi（北汽极狐 ARCFOX T5 / 广汽 AION V 第二代）",
+  "model_en": "Pony.ai Gen-7 Robotaxi (ARCFOX T5 / GAC AION V)",
+  "function_name": "L4 全无人 Robotaxi — 北京 / 上海 / 广州 / 深圳 四城商业化",
+  "function_name_en": "L4 Fully-Driverless Robotaxi — BJ/SH/GZ/SZ Commercial Operations",
+  "ads_level": 4,
+  "software_version": "基于 NVIDIA DRIVE Orin 的第七代 ADS 系统，系统设计寿命 10 年 / 60 万公里",
+  "hardware_config": "4× NVIDIA Orin-X（总算力 1016 TOPS）+ 9× 激光雷达（含 4× 禾赛 AT128 主雷达）+ 14× 摄像头 + 4× 毫米波雷达（650 m 探测）+ 4× 麦克风 + 2× 涉水传感器",
+  "effective_date": "2025-11-05",
   "elements": [
     {
       "element_id": "odd.road.type",
@@ -21,7 +21,7 @@
     {
       "element_id": "odd.road.type.area",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[官方声明] 北京亦庄 150 km² 核心区 + 四环-六环扩展；上海浦东新区（2025-07-25 首批许可）；广州南沙/中心城区（2025-02 开通）；深圳全市首个全域全无人许可（2025-10-30，首批南山/前海/宝安，2025-12 运营面积 167.4 km²）。"
     },
     {
       "element_id": "odd.road.type.urban_road",
@@ -31,12 +31,11 @@
     {
       "element_id": "odd.road.type.urban_road.expressway",
       "requirement": "permitted",
-      "description": "城市快速路"
+      "description": "围栏内城市快速路"
     },
     {
       "element_id": "odd.road.type.urban_road.arterial",
-      "requirement": "permitted",
-      "description": "城市主干路（v12 起支持城市道路端到端）"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.road.type.urban_road.sub_arterial",
@@ -45,7 +44,7 @@
     {
       "element_id": "odd.road.type.urban_road.branch",
       "requirement": "permitted",
-      "description": "含居住小区内部道路"
+      "description": "[推定] 支路在围栏内按许可"
     },
     {
       "element_id": "odd.road.type.highway",
@@ -54,16 +53,19 @@
     },
     {
       "element_id": "odd.road.type.highway.expressway",
-      "requirement": "permitted"
+      "requirement": "not_permitted",
+      "description": "[官方声明] L4 许可范围为城市道路；不含高速 / 城际",
+      "exit_behavior": "suppress_and_exit"
     },
     {
       "element_id": "odd.road.type.highway.class_1",
-      "requirement": "permitted"
+      "requirement": "permitted",
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.road.type.highway.class_2",
       "requirement": "permitted",
-      "description": "美国州际与州道"
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.road.type.highway.class_3",
@@ -77,8 +79,8 @@
     },
     {
       "element_id": "odd.road.type.rural",
-      "requirement": "permitted",
-      "description": "乡村道路（v13 表现提升）"
+      "requirement": "not_permitted",
+      "exit_behavior": "suppress_and_exit"
     },
     {
       "element_id": "odd.road.type.other",
@@ -88,12 +90,12 @@
     {
       "element_id": "odd.road.type.parking_indoor",
       "requirement": "permitted",
-      "description": "室内停车场受信号覆盖限制"
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.road.type.parking_outdoor",
       "requirement": "permitted",
-      "description": "Actually Smart Summon / Autopark 支持室外停车场"
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.road.surface",
@@ -107,8 +109,7 @@
     {
       "element_id": "odd.road.surface.type.unpaved",
       "requirement": "not_permitted",
-      "description": "非铺装路面（土路、砂石路）感知退化",
-      "exit_behavior": "trigger_exit"
+      "exit_behavior": "suppress_and_exit"
     },
     {
       "element_id": "odd.road.surface.quality.cracking",
@@ -143,7 +144,7 @@
     {
       "element_id": "odd.road.surface.coverage",
       "requirement": "permitted",
-      "description": "[手册明确] 手册「在结冰或湿滑路面上…切勿使用 TACC；大雨 / 大雪 / 浓雾等天气不宜恒定速度行驶」。"
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.road.geometry",
@@ -157,7 +158,7 @@
     {
       "element_id": "odd.road.geometry.plane.curve",
       "requirement": "permitted",
-      "description": "[手册明确] 手册原文「驾驶在急弯 / 过于崎岖的道路」列为 Autosteer 局限；「高曲率道路，尤其是高速下」不可用。无量化曲率数值。"
+      "parameter_range": "[推定] 按城市道路曲率处理"
     },
     {
       "element_id": "odd.road.geometry.plane.widening",
@@ -171,13 +172,11 @@
     },
     {
       "element_id": "odd.road.geometry.profile.uphill",
-      "requirement": "permitted",
-      "description": "[手册明确] 手册「驾驶在山路上」列为 Autosteer 局限。无量化坡度数值。"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.road.geometry.profile.downhill",
-      "requirement": "permitted",
-      "description": "[手册明确] 手册「驾驶在山路上」同适用于下坡。"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.road.geometry.cross.divider",
@@ -207,12 +206,12 @@
     {
       "element_id": "odd.road.lane.marking.quality",
       "requirement": "permitted",
-      "description": "[手册明确] 手册原文「车道线过度磨损、能看到以前的标线、因道路施工而变化、或变化过于迅速时，Autosteer 无法准确判断车道线」。"
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.road.lane.marking.absent",
       "requirement": "permitted",
-      "description": "v12 起支持无标线路段（停车场、末端小路）"
+      "description": "[推定] 依赖 HD 地图 + 9 激光雷达多模态"
     },
     {
       "element_id": "odd.road.lane.marking.color",
@@ -245,8 +244,8 @@
     },
     {
       "element_id": "odd.road.lane.type.bus",
-      "requirement": "permitted",
-      "description": "[手册明确] 手册「Navigate on Autopilot 可能无法识别或检测专用车道，如自行车、拼车、应急车辆等专用车道」。"
+      "requirement": "not_permitted",
+      "exit_behavior": "suppress_activation"
     },
     {
       "element_id": "odd.road.lane.type.dedicated",
@@ -266,16 +265,17 @@
     {
       "element_id": "odd.road.lane.type.emergency",
       "requirement": "not_permitted",
-      "description": "应急车道禁止行驶",
       "exit_behavior": "suppress_activation"
     },
     {
       "element_id": "odd.road.lane.type.exit",
-      "requirement": "permitted"
+      "requirement": "permitted",
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.road.lane.type.entrance",
-      "requirement": "permitted"
+      "requirement": "permitted",
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.road.lane.type.total_count",
@@ -290,8 +290,7 @@
     {
       "element_id": "odd.road.lane.width",
       "requirement": "permitted",
-      "description": "[手册明确] 手册「狭窄道路有迎面车辆或双排停放车辆」列为 FSD 局限。",
-      "parameter_range": "[推定] 标准美制道路宽度 3.6 m+；手册未给具体最小值"
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.road.edge",
@@ -341,7 +340,7 @@
     {
       "element_id": "odd.road.intersection.at_grade",
       "requirement": "permitted",
-      "description": "信号灯与 Stop Sign 十字路口；支持无保护左转"
+      "description": "[官方声明] 信号灯十字路口（核心城市道路 L4 能力）"
     },
     {
       "element_id": "odd.road.intersection.roundabout.mini",
@@ -374,7 +373,8 @@
     },
     {
       "element_id": "odd.road.intersection.interchange.general",
-      "requirement": "permitted"
+      "requirement": "permitted",
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.road.intersection.interchange.hub",
@@ -383,7 +383,8 @@
     },
     {
       "element_id": "odd.road.intersection.ramp",
-      "requirement": "permitted"
+      "requirement": "permitted",
+      "description": "[官方声明] 2025-03 开通北京南站—亦庄付费路线（首条枢纽级，含高速接驳）"
     },
     {
       "element_id": "odd.infrastructure.traffic_control",
@@ -392,13 +393,12 @@
     },
     {
       "element_id": "odd.infrastructure.traffic_control.sign",
-      "requirement": "permitted",
-      "description": "识别限速牌、Stop Sign、让行标志"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.infrastructure.traffic_control.signal",
       "requirement": "permitted",
-      "description": "识别信号灯（红/黄/绿）"
+      "description": "[官方声明] 感知 + HD 地图识别"
     },
     {
       "element_id": "odd.infrastructure.roadside",
@@ -432,13 +432,11 @@
     },
     {
       "element_id": "odd.infrastructure.special.bridge",
-      "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.infrastructure.special.crosswalk",
-      "requirement": "permitted",
-      "description": "[手册明确] 手册原文「切勿依赖 TACC 对行人和骑行者充分减速」——FSD v13 识别人行横道并让行，但驾驶员责任不减。"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.infrastructure.special.height_width_limit",
@@ -456,18 +454,17 @@
     },
     {
       "element_id": "odd.infrastructure.special.railway_crossing",
-      "requirement": "permitted",
-      "description": "识别铁路道口并停车等待"
+      "requirement": "not_permitted",
+      "exit_behavior": "suppress_and_exit"
     },
     {
       "element_id": "odd.infrastructure.special.tunnel",
-      "requirement": "permitted",
-      "description": "[手册明确] 手册「在隧道中行驶」影响摄像头视野，TACC/Autopilot 可能异常。"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.infrastructure.special.toll_station",
       "requirement": "permitted",
-      "description": "[手册明确] 手册「接近收费站」列为 TACC/Autosteer 运行不可靠情形；Navigate on Autopilot 离开高速时退回 Autosteer。"
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.infrastructure.special.warning_post",
@@ -482,17 +479,16 @@
     {
       "element_id": "odd.infrastructure.temporary.construction",
       "requirement": "permitted",
-      "description": "[手册明确] 手册原文「切勿在施工区使用 Autosteer」。FSD v13 可识别并减速通过，但非设计场景。"
+      "description": "[推定] 施工区走动态路线规划 + 远程接管兜底"
     },
     {
       "element_id": "odd.infrastructure.temporary.accident_site",
-      "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.infrastructure.temporary.traffic_control",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[推定] 4× 麦克风可识别救护车 / 特种车辆警笛"
     },
     {
       "element_id": "odd.targets.motor_vehicle",
@@ -501,7 +497,7 @@
     {
       "element_id": "odd.targets.non_motor_vehicle",
       "requirement": "permitted",
-      "description": "自行车、摩托车识别"
+      "description": "[官方声明] 中国城市混合交通必需"
     },
     {
       "element_id": "odd.targets.pedestrian",
@@ -509,13 +505,12 @@
     },
     {
       "element_id": "odd.targets.animal",
-      "requirement": "permitted",
-      "description": "大型动物（鹿等）识别，小型动物覆盖有限"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.targets.obstacle",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[官方声明] 4× 禾赛 AT128 主雷达 153 万点/秒 + 200 m 测距"
     },
     {
       "element_id": "odd.weather.atmospheric",
@@ -525,24 +520,22 @@
     {
       "element_id": "odd.weather.atmospheric.wind",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[推定] 含 2× 涉水传感器，表明在强降水 / 积水场景有专门设计"
     },
     {
       "element_id": "odd.weather.atmospheric.rain",
       "requirement": "permitted",
-      "description": "[手册明确] 手册原文「能见度低（暴雨、大雪、浓雾等）或天气条件干扰传感器」时 Autosteer 可能无法按预期运行。无 mm/h 阈值。"
+      "description": "[手册未涉及] 公开 IR 未披露具体停运阈值；与 Apollo Go「极端天气停运」惯例一致"
     },
     {
       "element_id": "odd.weather.atmospheric.snow.snowfall",
-      "requirement": "not_permitted",
-      "description": "[手册明确] 手册同上引述：暴雪导致纯视觉感知退化。",
-      "exit_behavior": "suppress_and_exit"
+      "requirement": "permitted",
+      "description": "[手册未涉及] 同上，深雪下预期停运"
     },
     {
       "element_id": "odd.weather.atmospheric.snow.accumulation",
-      "requirement": "not_permitted",
-      "description": "道路积雪覆盖标线不可用",
-      "exit_behavior": "suppress_and_exit"
+      "requirement": "permitted",
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.weather.atmospheric.special",
@@ -557,8 +550,7 @@
     {
       "element_id": "odd.weather.particles.fog",
       "requirement": "permitted",
-      "description": "[手册明确] 手册「浓雾」同上；无能见度米数阈值。",
-      "parameter_range": "[手册未量化] 仅定性描述"
+      "description": "[官方声明] 4× 毫米波雷达恶劣天气下稳定，650 m 探测"
     },
     {
       "element_id": "odd.weather.particles.haze",
@@ -582,8 +574,7 @@
     },
     {
       "element_id": "odd.weather.lighting.natural",
-      "requirement": "permitted",
-      "description": "[手册明确] 手册「强光如迎面车灯或阳光直射」干扰摄像头视野。"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.weather.lighting.streetlight",
@@ -592,7 +583,7 @@
     {
       "element_id": "odd.weather.lighting.headlight",
       "requirement": "permitted",
-      "description": "[手册明确] 夜间依赖车灯；迎面车灯可能干扰摄像头（手册原文）。"
+      "description": "[官方声明] 全天候运营（取决于城市许可）"
     },
     {
       "element_id": "odd.weather.lighting.indoor",
@@ -602,7 +593,7 @@
     {
       "element_id": "odd.weather.temperature",
       "requirement": "permitted",
-      "description": "[手册明确] 手册「极热或极冷温度」干扰传感器运行。无量化 ℃。"
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.digital.wireless",
@@ -617,7 +608,7 @@
     {
       "element_id": "odd.digital.wireless.v2i",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[推定] 部分示范区（亦庄）含 V2X 基础设施"
     },
     {
       "element_id": "odd.digital.wireless.v2p",
@@ -636,13 +627,12 @@
     },
     {
       "element_id": "odd.digital.position.gnss",
-      "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.digital.position.rtk",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[推定] L4 Robotaxi 标配 RTK 高精度定位"
     },
     {
       "element_id": "personnel.driver",
@@ -651,18 +641,18 @@
     },
     {
       "element_id": "personnel.driver.takeover.attention",
-      "requirement": "permitted",
-      "description": "[手册明确] 手册原文「Autopilot 激活时，Model Y 显示一系列升级的警告提醒你手握方向盘并注意路况。无响应则 Autopilot 断开并在整个行程剩余时间不可用」。具体秒数未公开（社区观察首次约 30s）。"
+      "requirement": "not_permitted",
+      "description": "[官方声明] 全无人运营（车内无安全员）；异常时远程安全员 + MRM 接管"
     },
     {
       "element_id": "personnel.driver.takeover.other",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[官方声明] 远程安全员 + MRM（最小风险机动）；具体响应时限未公开"
     },
     {
       "element_id": "personnel.driver.seatbelt",
       "requirement": "permitted",
-      "description": "[手册明确] 未系安全带系统不激活（手册默认要求）。"
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "personnel.driver.posture",
@@ -681,13 +671,12 @@
     },
     {
       "element_id": "personnel.passenger.seatbelt",
-      "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "requirement": "permitted"
     },
     {
       "element_id": "personnel.passenger.other",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[手册未涉及] 乘客年龄规则公开 IR 未披露（对比 Apollo Go 有明确 14-18 岁陪同、70+ 不支持规则）"
     },
     {
       "element_id": "vehicle.motion",
@@ -697,12 +686,12 @@
     {
       "element_id": "vehicle.motion.speed.operating",
       "requirement": "permitted",
-      "parameter_range": "[手册明确] 最大巡航速度 150 km/h（90 mph，Autosteer 上限）；超过 80 km/h 时 TACC 不能可靠识别静止车辆；速度牌无法识别时系统限速 70 km/h（45 mph）。"
+      "parameter_range": "[官方声明] 盈亏测算：深圳 2026-02 单车单日 23 单 + 净收入 338 元"
     },
     {
       "element_id": "vehicle.motion.speed.activation",
       "requirement": "permitted",
-      "parameter_range": "[手册明确] Autosteer 最低激活 30 km/h（18 mph，无前车时）；有前车时可在低于 150 km/h（90 mph）任意速度激活（手册 Autosteer 章节）"
+      "parameter_range": "[官方声明] 加州运营有 72 km/h 限速；中国按各城市道路限速执行，无公开统一上限"
     },
     {
       "element_id": "vehicle.motion.acceleration.operating",
@@ -717,26 +706,28 @@
     {
       "element_id": "vehicle.ads_state",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[官方声明] 4× Orin-X 冗余架构；9 激光雷达 + 14 摄像头 + 4 毫米波 + 4 麦克风 + 2 涉水传感器 + 1 碰撞传感器，360° 无盲区 650 m 感知；车规级 100%"
     },
     {
       "element_id": "vehicle.other_systems",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[官方声明] 系统设计寿命 10 年 / 60 万公里；BOM 相比第六代 -70%"
     }
   ],
   "metadata": {
     "submitted_by": "openodc-community",
-    "submitted_at": "2026-04-17T10:00:00Z",
+    "submitted_at": "2026-04-18T10:00:00Z",
     "review_status": "draft",
     "sources": [
-      "Tesla Model Y 车主手册（美国市场 HTML 版）: https://www.tesla.com/ownersmanual/modely/en_us/",
-      "Tesla Model Y 车主手册（北美市场 PDF，软件 2026.2.8）: https://www.tesla.com/ownersmanual/modely/en_us/Owners_Manual.pdf",
-      "Tesla FSD Supervised 产品页: https://www.tesla.com/support/fsd",
-      "Tesla Model Y 手册 · Autopilot 章节: https://www.tesla.com/ownersmanual/modely/en_us/GUID-2CB60804-9CEA-4F4B-8B04-09B991368DC5.html",
-      "Tesla Model Y 手册 · Speed Assist 章节: https://www.tesla.com/ownersmanual/modely/en_us/GUID-5D3D4014-4E98-45D7-8BBC-F76BCA9CEC05.html",
-      "NotATeslaApp · FSD v13.2.9 DMS 更新（2025.14.6）: https://www.notateslaapp.com/software-updates/version/2025.14.6/release-notes"
+      "小马智行官网（中文）: https://pony.ai/?lang=zh",
+      "Pony.ai 投资者关系: https://ir.pony.ai",
+      "第七代全无人商业化启动（2025-11-06）: https://ir.pony.ai/news-releases/news-release-details/pony-ai-inc-kicks-fully-driverless-commercial-services-gen-7",
+      "深圳全域全无人许可（2025-10-30）: https://ir.pony.ai/news-releases/news-release-details/pony-ai-inc-and-xihu-group-jointly-secure-shenzhens-first-city",
+      "上海浦东全无人许可（2025-07-25）: https://ir.pony.ai/news-releases/news-release-details/pony-ai-inc-among-first-receive-permit-fully-driverless",
+      "禾赛 AT128 + 小马智行第七代合作稿: https://www.hesaitech.com/cn/news/1291",
+      "NVIDIA Blog — Pony.ai Gen-7 DRIVE Orin: https://blogs.nvidia.com/blog/pony-ai-robotaxi-fleet-drive-orin/",
+      "ChinaEVHome — Pony.ai Gen-7 1016 TOPS / BOM -70%: https://chinaevhome.com/2025/11/10/pony-ai-debuts-seventh-gen-robotaxi-with-1016-tops-cuts-cost-70/"
     ],
-    "notes": "以 Tesla 官方 Model Y 车主手册为主引用，手册多为定性描述，仅少量参数量化。手册明确引用（均见于官方 URL）：FSD 激活速度上限 85 mph (140 km/h)；速度牌无法识别时限速 45 mph (70 km/h)；Autosteer 在 >85 mph 自动取消。Tesla 不公开完整量化 ODD，weather / curvature / gradient 均为 [推定] 或 [手册未涉及]。Tesla 不发布公开版本更新日志（仅车内显示），第三方镜像如 notateslaapp.com 为实际最可靠来源。"
+    "notes": "基于小马智行 IR 公开信息 + 媒体披露的社区反推。关键官方数据：①四城商业化（BJ/SH/GZ/SZ），中国唯一一线城市全覆盖；②第七代硬件 1016 TOPS + 9 激光雷达 + 360° 650 m 感知；③深圳 2026-02 月度盈亏转正（单车日均 23 单 / 338 元净收入）；④车队 667 辆第七代，全球总量 961 辆，2026 底目标 3000+。无公开 mm/h 天气阈值、乘客年龄规则、统一速度上限——这些可能在 App 内或内部 SOP，公开资料空白。"
   }
 }

@@ -1,0 +1,57 @@
+{
+  "odd.road.geometry.plane.curve": {
+    "description": "[手册明确] 中文手册「在有急弯的蜿蜒道路上…切勿使用 TACC」；Autosteer 在车道线急弯曲折时不可用。",
+    "parameter_range": "[手册未量化]"
+  },
+  "odd.road.geometry.profile.uphill": {
+    "description": "[手册明确] 中文手册「在山路上行驶」列为 Autosteer 局限。"
+  },
+  "odd.road.geometry.profile.downhill": {
+    "description": "[手册明确] 中文手册同上适用。"
+  },
+  "odd.road.surface.coverage": {
+    "description": "[手册明确] 中文手册「结冰或湿滑路面…切勿使用 TACC；大雨 / 大雪 / 浓雾等天气不宜恒定速度行驶」。"
+  },
+  "odd.road.lane.marking.quality": {
+    "description": "[手册明确] 中文手册原文「车道线过度磨损、能看到以前的标线、因施工变化、或变化过于迅速时，Autosteer 无法准确判断车道线」。"
+  },
+  "odd.road.lane.width": {
+    "description": "[手册明确] 中文手册「面对迎面而来的车辆或双排停放车辆的狭窄道路」列为 Autopilot 局限。",
+    "parameter_range": "[手册未量化]"
+  },
+  "odd.road.lane.type.bus": {
+    "description": "[手册明确] 中文手册「NoA 可能无法识别专用车道，如自行车、拼车、应急车辆等专用车道」。"
+  },
+  "odd.infrastructure.special.tunnel": {
+    "description": "[手册明确] 中文手册「在隧道中行驶」影响摄像头视野，TACC/Autopilot 可能无法按预期运行。"
+  },
+  "odd.infrastructure.special.crosswalk": {
+    "description": "[手册明确] 中文手册「切勿依赖 TACC 对行人和骑行者充分减速」。基础 AP 不主动让行，AEB 仅作兜底。"
+  },
+  "odd.infrastructure.temporary.construction": {
+    "description": "[手册明确] 中文手册原文「切勿在施工区使用 Autosteer」。"
+  },
+  "odd.weather.atmospheric.rain": {
+    "description": "[手册明确] 中文手册「能见度低（暴雨、大雪、浓雾等）或天气条件干扰传感器运行」时 Autosteer 可能异常。无 mm/h 阈值。"
+  },
+  "odd.weather.atmospheric.snow.snowfall": {
+    "description": "[手册明确] 中文手册同上引述。",
+    "exit_behavior": "suppress_and_exit"
+  },
+  "odd.weather.particles.fog": {
+    "description": "[手册明确] 中文手册「浓雾」属于视觉受限场景。",
+    "parameter_range": "[手册未量化]"
+  },
+  "odd.weather.temperature": {
+    "description": "[手册明确] 中文手册「极热或极冷温度」干扰传感器运行。"
+  },
+  "odd.weather.lighting.natural": {
+    "description": "[手册明确] 中文手册「强光（如迎面车灯或阳光直射）干扰摄像头视野」。"
+  },
+  "personnel.driver.takeover.attention": {
+    "description": "[手册明确] Tesla 中国 AP 说明页原文「驾驶员必须始终将双手置于方向盘上，并注意路况、周围交通和其他道路使用者」。"
+  },
+  "personnel.driver.seatbelt": {
+    "description": "[手册明确] 未系安全带系统不激活。"
+  }
+}

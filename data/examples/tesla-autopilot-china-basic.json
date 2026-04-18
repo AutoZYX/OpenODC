@@ -144,7 +144,7 @@
     {
       "element_id": "odd.road.surface.coverage",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[手册明确] 中文手册「结冰或湿滑路面…切勿使用 TACC；大雨 / 大雪 / 浓雾等天气不宜恒定速度行驶」。"
     },
     {
       "element_id": "odd.road.geometry",
@@ -158,7 +158,8 @@
     {
       "element_id": "odd.road.geometry.plane.curve",
       "requirement": "permitted",
-      "parameter_range": "曲率半径 ≥ 150 m（经验推断）"
+      "parameter_range": "[手册未量化]",
+      "description": "[手册明确] 中文手册「在有急弯的蜿蜒道路上…切勿使用 TACC」；Autosteer 在车道线急弯曲折时不可用。"
     },
     {
       "element_id": "odd.road.geometry.plane.widening",
@@ -172,11 +173,13 @@
     },
     {
       "element_id": "odd.road.geometry.profile.uphill",
-      "requirement": "permitted"
+      "requirement": "permitted",
+      "description": "[手册明确] 中文手册「在山路上行驶」列为 Autosteer 局限。"
     },
     {
       "element_id": "odd.road.geometry.profile.downhill",
-      "requirement": "permitted"
+      "requirement": "permitted",
+      "description": "[手册明确] 中文手册同上适用。"
     },
     {
       "element_id": "odd.road.geometry.cross.divider",
@@ -206,7 +209,7 @@
     {
       "element_id": "odd.road.lane.marking.quality",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[手册明确] 中文手册原文「车道线过度磨损、能看到以前的标线、因施工变化、或变化过于迅速时，Autosteer 无法准确判断车道线」。"
     },
     {
       "element_id": "odd.road.lane.marking.absent",
@@ -246,7 +249,7 @@
     {
       "element_id": "odd.road.lane.type.bus",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[手册明确] 中文手册「NoA 可能无法识别专用车道，如自行车、拼车、应急车辆等专用车道」。"
     },
     {
       "element_id": "odd.road.lane.type.dedicated",
@@ -291,7 +294,8 @@
     {
       "element_id": "odd.road.lane.width",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[手册明确] 中文手册「面对迎面而来的车辆或双排停放车辆的狭窄道路」列为 Autopilot 局限。",
+      "parameter_range": "[手册未量化]"
     },
     {
       "element_id": "odd.road.edge",
@@ -441,7 +445,7 @@
     {
       "element_id": "odd.infrastructure.special.crosswalk",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[手册明确] 中文手册「切勿依赖 TACC 对行人和骑行者充分减速」。基础 AP 不主动让行，AEB 仅作兜底。"
     },
     {
       "element_id": "odd.infrastructure.special.height_width_limit",
@@ -466,7 +470,7 @@
     {
       "element_id": "odd.infrastructure.special.tunnel",
       "requirement": "permitted",
-      "description": "隧道内可继续运行，但摄像头适应期可能降级"
+      "description": "[手册明确] 中文手册「在隧道中行驶」影响摄像头视野，TACC/Autopilot 可能无法按预期运行。"
     },
     {
       "element_id": "odd.infrastructure.special.toll_station",
@@ -486,7 +490,7 @@
     {
       "element_id": "odd.infrastructure.temporary.construction",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[手册明确] 中文手册原文「切勿在施工区使用 Autosteer」。"
     },
     {
       "element_id": "odd.infrastructure.temporary.accident_site",
@@ -536,12 +540,13 @@
     {
       "element_id": "odd.weather.atmospheric.rain",
       "requirement": "permitted",
-      "description": "中等以下降雨可用；暴雨性能下降"
+      "description": "[手册明确] 中文手册「能见度低（暴雨、大雪、浓雾等）或天气条件干扰传感器运行」时 Autosteer 可能异常。无 mm/h 阈值。"
     },
     {
       "element_id": "odd.weather.atmospheric.snow.snowfall",
       "requirement": "not_permitted",
-      "exit_behavior": "suppress_and_exit"
+      "exit_behavior": "suppress_and_exit",
+      "description": "[手册明确] 中文手册同上引述。"
     },
     {
       "element_id": "odd.weather.atmospheric.snow.accumulation",
@@ -561,8 +566,8 @@
     {
       "element_id": "odd.weather.particles.fog",
       "requirement": "permitted",
-      "description": "轻雾可用",
-      "parameter_range": "visibility > 200 m"
+      "description": "[手册明确] 中文手册「浓雾」属于视觉受限场景。",
+      "parameter_range": "[手册未量化]"
     },
     {
       "element_id": "odd.weather.particles.haze",
@@ -586,7 +591,8 @@
     },
     {
       "element_id": "odd.weather.lighting.natural",
-      "requirement": "permitted"
+      "requirement": "permitted",
+      "description": "[手册明确] 中文手册「强光（如迎面车灯或阳光直射）干扰摄像头视野」。"
     },
     {
       "element_id": "odd.weather.lighting.streetlight",
@@ -604,7 +610,7 @@
     {
       "element_id": "odd.weather.temperature",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[手册明确] 中文手册「极热或极冷温度」干扰传感器运行。"
     },
     {
       "element_id": "odd.digital.wireless",
@@ -654,7 +660,7 @@
     {
       "element_id": "personnel.driver.takeover.attention",
       "requirement": "permitted",
-      "description": "须持续注视前方，方向盘扭矩检测 + Cabin Camera DMS"
+      "description": "[手册明确] Tesla 中国 AP 说明页原文「驾驶员必须始终将双手置于方向盘上，并注意路况、周围交通和其他道路使用者」。"
     },
     {
       "element_id": "personnel.driver.takeover.other",
@@ -663,7 +669,8 @@
     },
     {
       "element_id": "personnel.driver.seatbelt",
-      "requirement": "permitted"
+      "requirement": "permitted",
+      "description": "[手册明确] 未系安全带系统不激活。"
     },
     {
       "element_id": "personnel.driver.posture",

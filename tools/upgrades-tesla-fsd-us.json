@@ -1,0 +1,63 @@
+{
+  "odd.road.geometry.plane.curve": {
+    "description": "[手册明确] 手册原文「驾驶在急弯 / 过于崎岖的道路」列为 Autosteer 局限；「高曲率道路，尤其是高速下」不可用。无量化曲率数值。"
+  },
+  "odd.road.geometry.profile.uphill": {
+    "description": "[手册明确] 手册「驾驶在山路上」列为 Autosteer 局限。无量化坡度数值。"
+  },
+  "odd.road.geometry.profile.downhill": {
+    "description": "[手册明确] 手册「驾驶在山路上」同适用于下坡。"
+  },
+  "odd.road.surface.coverage": {
+    "description": "[手册明确] 手册「在结冰或湿滑路面上…切勿使用 TACC；大雨 / 大雪 / 浓雾等天气不宜恒定速度行驶」。"
+  },
+  "odd.road.lane.marking.quality": {
+    "description": "[手册明确] 手册原文「车道线过度磨损、能看到以前的标线、因道路施工而变化、或变化过于迅速时，Autosteer 无法准确判断车道线」。"
+  },
+  "odd.road.lane.width": {
+    "description": "[手册明确] 手册「狭窄道路有迎面车辆或双排停放车辆」列为 FSD 局限。",
+    "parameter_range": "[推定] 标准美制道路宽度 3.6 m+；手册未给具体最小值"
+  },
+  "odd.road.lane.type.bus": {
+    "description": "[手册明确] 手册「Navigate on Autopilot 可能无法识别或检测专用车道，如自行车、拼车、应急车辆等专用车道」。",
+    "exit_behavior": null
+  },
+  "odd.infrastructure.special.toll_station": {
+    "description": "[手册明确] 手册「接近收费站」列为 TACC/Autosteer 运行不可靠情形；Navigate on Autopilot 离开高速时退回 Autosteer。"
+  },
+  "odd.infrastructure.special.tunnel": {
+    "description": "[手册明确] 手册「在隧道中行驶」影响摄像头视野，TACC/Autopilot 可能异常。"
+  },
+  "odd.infrastructure.special.crosswalk": {
+    "description": "[手册明确] 手册原文「切勿依赖 TACC 对行人和骑行者充分减速」——FSD v13 识别人行横道并让行，但驾驶员责任不减。"
+  },
+  "odd.infrastructure.temporary.construction": {
+    "description": "[手册明确] 手册原文「切勿在施工区使用 Autosteer」。FSD v13 可识别并减速通过，但非设计场景。"
+  },
+  "odd.weather.atmospheric.rain": {
+    "description": "[手册明确] 手册原文「能见度低（暴雨、大雪、浓雾等）或天气条件干扰传感器」时 Autosteer 可能无法按预期运行。无 mm/h 阈值。"
+  },
+  "odd.weather.atmospheric.snow.snowfall": {
+    "description": "[手册明确] 手册同上引述：暴雪导致纯视觉感知退化。",
+    "exit_behavior": "suppress_and_exit"
+  },
+  "odd.weather.particles.fog": {
+    "description": "[手册明确] 手册「浓雾」同上；无能见度米数阈值。",
+    "parameter_range": "[手册未量化] 仅定性描述"
+  },
+  "odd.weather.temperature": {
+    "description": "[手册明确] 手册「极热或极冷温度」干扰传感器运行。无量化 ℃。"
+  },
+  "odd.weather.lighting.natural": {
+    "description": "[手册明确] 手册「强光如迎面车灯或阳光直射」干扰摄像头视野。"
+  },
+  "odd.weather.lighting.headlight": {
+    "description": "[手册明确] 夜间依赖车灯；迎面车灯可能干扰摄像头（手册原文）。"
+  },
+  "personnel.driver.takeover.attention": {
+    "description": "[手册明确] 手册原文「Autopilot 激活时，Model Y 显示一系列升级的警告提醒你手握方向盘并注意路况。无响应则 Autopilot 断开并在整个行程剩余时间不可用」。具体秒数未公开（社区观察首次约 30s）。"
+  },
+  "personnel.driver.seatbelt": {
+    "description": "[手册明确] 未系安全带系统不激活（手册默认要求）。"
+  }
+}

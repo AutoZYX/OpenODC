@@ -1,17 +1,17 @@
 {
-  "id": "tesla-fsd-us-v13",
+  "id": "xpeng-xngp-p7plus-2026",
   "spec_version": "0.1.0",
   "spec_source": "GB/T 45312-2025",
-  "vendor": "特斯拉",
-  "vendor_en": "Tesla",
-  "model": "Model 3 / Model Y / Model S / Model X（HW3 或 HW4）",
-  "model_en": "Model 3 / Y / S / X (HW3 or HW4)",
-  "function_name": "FSD（Supervised）监督式全场景辅助驾驶 v13（美国市场）",
-  "function_name_en": "FSD (Supervised) v13 — US market",
+  "vendor": "小鹏汽车",
+  "vendor_en": "XPENG",
+  "model": "P7+ 2026 款（同时适用 G9 / G6 / G7 2026 款 Max）",
+  "model_en": "XPENG P7+ 2026 (also G9 / G6 / G7 2026 Max)",
+  "function_name": "XNGP — 无图城市 / 高速辅助驾驶（第二代 VLA 大模型）",
+  "function_name_en": "XNGP — Mapless Urban/Highway Navigation Guided Pilot (Gen-2 VLA)",
   "ads_level": 2,
-  "software_version": "FSD v13.x（2024-12 起）",
-  "hardware_config": "HW3 / HW4，纯视觉（8 摄像头）",
-  "effective_date": "2025-01-01",
+  "software_version": "第二代 VLA（Vision-Language-Action）大模型，2026-03 起首批 OTA 推送",
+  "hardware_config": "3× 自研图灵 AI 芯片，整车 2250 TOPS；舱内 1× 图灵 750 TOPS；AI 鹰眼纯视觉（P7+ 2024-10 起无激光雷达）",
+  "effective_date": "2026-01-08",
   "elements": [
     {
       "element_id": "odd.road.type",
@@ -31,12 +31,12 @@
     {
       "element_id": "odd.road.type.urban_road.expressway",
       "requirement": "permitted",
-      "description": "城市快速路"
+      "description": "[官方声明] 城区 NCA 覆盖已开放 243+ 城市的快速路（官方 2024-01 数据，现覆盖更大）"
     },
     {
       "element_id": "odd.road.type.urban_road.arterial",
       "requirement": "permitted",
-      "description": "城市主干路（v12 起支持城市道路端到端）"
+      "description": "[官方声明] 城区 NCA 主干路覆盖"
     },
     {
       "element_id": "odd.road.type.urban_road.sub_arterial",
@@ -45,7 +45,7 @@
     {
       "element_id": "odd.road.type.urban_road.branch",
       "requirement": "permitted",
-      "description": "含居住小区内部道路"
+      "description": "[推定] 支路依赖 AI 鹰眼感知 + 无图能力"
     },
     {
       "element_id": "odd.road.type.highway",
@@ -54,7 +54,8 @@
     },
     {
       "element_id": "odd.road.type.highway.expressway",
-      "requirement": "permitted"
+      "requirement": "permitted",
+      "description": "[官方声明] 高速 NGP"
     },
     {
       "element_id": "odd.road.type.highway.class_1",
@@ -63,7 +64,7 @@
     {
       "element_id": "odd.road.type.highway.class_2",
       "requirement": "permitted",
-      "description": "美国州际与州道"
+      "description": "[推定] 二级公路在清晰车道线下可用"
     },
     {
       "element_id": "odd.road.type.highway.class_3",
@@ -78,7 +79,7 @@
     {
       "element_id": "odd.road.type.rural",
       "requirement": "permitted",
-      "description": "乡村道路（v13 表现提升）"
+      "description": "[推定] 乡村道路需清晰车道线；未作官方声明"
     },
     {
       "element_id": "odd.road.type.other",
@@ -88,12 +89,11 @@
     {
       "element_id": "odd.road.type.parking_indoor",
       "requirement": "permitted",
-      "description": "室内停车场受信号覆盖限制"
+      "description": "[官方声明] XNGP 含停车场 VPA 代客泊车（小鹏智能泊车 Max）"
     },
     {
       "element_id": "odd.road.type.parking_outdoor",
-      "requirement": "permitted",
-      "description": "Actually Smart Summon / Autopark 支持室外停车场"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.road.surface",
@@ -107,7 +107,7 @@
     {
       "element_id": "odd.road.surface.type.unpaved",
       "requirement": "not_permitted",
-      "description": "非铺装路面（土路、砂石路）感知退化",
+      "description": "[推定] 非铺装路面 AI 鹰眼无法稳定识别",
       "exit_behavior": "trigger_exit"
     },
     {
@@ -143,7 +143,7 @@
     {
       "element_id": "odd.road.surface.coverage",
       "requirement": "permitted",
-      "description": "[手册明确] 手册「在结冰或湿滑路面上…切勿使用 TACC；大雨 / 大雪 / 浓雾等天气不宜恒定速度行驶」。"
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.road.geometry",
@@ -157,7 +157,8 @@
     {
       "element_id": "odd.road.geometry.plane.curve",
       "requirement": "permitted",
-      "description": "[手册明确] 手册原文「驾驶在急弯 / 过于崎岖的道路」列为 Autosteer 局限；「高曲率道路，尤其是高速下」不可用。无量化曲率数值。"
+      "parameter_range": "[手册未量化]",
+      "description": "官方 demo 含山路弯道连续通过"
     },
     {
       "element_id": "odd.road.geometry.plane.widening",
@@ -171,13 +172,11 @@
     },
     {
       "element_id": "odd.road.geometry.profile.uphill",
-      "requirement": "permitted",
-      "description": "[手册明确] 手册「驾驶在山路上」列为 Autosteer 局限。无量化坡度数值。"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.road.geometry.profile.downhill",
-      "requirement": "permitted",
-      "description": "[手册明确] 手册「驾驶在山路上」同适用于下坡。"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.road.geometry.cross.divider",
@@ -207,12 +206,12 @@
     {
       "element_id": "odd.road.lane.marking.quality",
       "requirement": "permitted",
-      "description": "[手册明确] 手册原文「车道线过度磨损、能看到以前的标线、因道路施工而变化、或变化过于迅速时，Autosteer 无法准确判断车道线」。"
+      "description": "[推定] 第二代 VLA 大模型对标线要求降低；但磨损严重仍会退出"
     },
     {
       "element_id": "odd.road.lane.marking.absent",
       "requirement": "permitted",
-      "description": "v12 起支持无标线路段（停车场、末端小路）"
+      "description": "[官方声明] XNGP 「无图」能力，支持无标线路段（官方宣传重点）"
     },
     {
       "element_id": "odd.road.lane.marking.color",
@@ -245,8 +244,8 @@
     },
     {
       "element_id": "odd.road.lane.type.bus",
-      "requirement": "permitted",
-      "description": "[手册明确] 手册「Navigate on Autopilot 可能无法识别或检测专用车道，如自行车、拼车、应急车辆等专用车道」。"
+      "requirement": "not_permitted",
+      "exit_behavior": "suppress_activation"
     },
     {
       "element_id": "odd.road.lane.type.dedicated",
@@ -266,12 +265,12 @@
     {
       "element_id": "odd.road.lane.type.emergency",
       "requirement": "not_permitted",
-      "description": "应急车道禁止行驶",
       "exit_behavior": "suppress_activation"
     },
     {
       "element_id": "odd.road.lane.type.exit",
-      "requirement": "permitted"
+      "requirement": "permitted",
+      "description": "[官方声明] 高速 NGP 自动出入口"
     },
     {
       "element_id": "odd.road.lane.type.entrance",
@@ -290,8 +289,7 @@
     {
       "element_id": "odd.road.lane.width",
       "requirement": "permitted",
-      "description": "[手册明确] 手册「狭窄道路有迎面车辆或双排停放车辆」列为 FSD 局限。",
-      "parameter_range": "[推定] 标准美制道路宽度 3.6 m+；手册未给具体最小值"
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.road.edge",
@@ -341,7 +339,7 @@
     {
       "element_id": "odd.road.intersection.at_grade",
       "requirement": "permitted",
-      "description": "信号灯与 Stop Sign 十字路口；支持无保护左转"
+      "description": "[官方声明] 城区 NCA 支持信号灯十字路口、左右转、掉头"
     },
     {
       "element_id": "odd.road.intersection.roundabout.mini",
@@ -355,7 +353,8 @@
     },
     {
       "element_id": "odd.road.intersection.roundabout.normal",
-      "requirement": "permitted"
+      "requirement": "permitted",
+      "description": "[官方声明] 城区 NCA 支持环岛（XNGP 5.x 新增）"
     },
     {
       "element_id": "odd.road.intersection.roundabout.large",
@@ -383,7 +382,8 @@
     },
     {
       "element_id": "odd.road.intersection.ramp",
-      "requirement": "permitted"
+      "requirement": "permitted",
+      "description": "[官方声明] 高速 NGP 自动上下匝道"
     },
     {
       "element_id": "odd.infrastructure.traffic_control",
@@ -392,13 +392,12 @@
     },
     {
       "element_id": "odd.infrastructure.traffic_control.sign",
-      "requirement": "permitted",
-      "description": "识别限速牌、Stop Sign、让行标志"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.infrastructure.traffic_control.signal",
       "requirement": "permitted",
-      "description": "识别信号灯（红/黄/绿）"
+      "description": "[官方声明] 城区 NCA 识别红绿灯"
     },
     {
       "element_id": "odd.infrastructure.roadside",
@@ -437,8 +436,7 @@
     },
     {
       "element_id": "odd.infrastructure.special.crosswalk",
-      "requirement": "permitted",
-      "description": "[手册明确] 手册原文「切勿依赖 TACC 对行人和骑行者充分减速」——FSD v13 识别人行横道并让行，但驾驶员责任不减。"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.infrastructure.special.height_width_limit",
@@ -457,17 +455,16 @@
     {
       "element_id": "odd.infrastructure.special.railway_crossing",
       "requirement": "permitted",
-      "description": "识别铁路道口并停车等待"
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.infrastructure.special.tunnel",
-      "requirement": "permitted",
-      "description": "[手册明确] 手册「在隧道中行驶」影响摄像头视野，TACC/Autopilot 可能异常。"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.infrastructure.special.toll_station",
       "requirement": "permitted",
-      "description": "[手册明确] 手册「接近收费站」列为 TACC/Autosteer 运行不可靠情形；Navigate on Autopilot 离开高速时退回 Autosteer。"
+      "description": "[推定] 高速 NGP 自动过收费站"
     },
     {
       "element_id": "odd.infrastructure.special.warning_post",
@@ -482,7 +479,7 @@
     {
       "element_id": "odd.infrastructure.temporary.construction",
       "requirement": "permitted",
-      "description": "[手册明确] 手册原文「切勿在施工区使用 Autosteer」。FSD v13 可识别并减速通过，但非设计场景。"
+      "description": "[官方声明] 2026款官方 demo 含施工区绕行"
     },
     {
       "element_id": "odd.infrastructure.temporary.accident_site",
@@ -496,26 +493,27 @@
     },
     {
       "element_id": "odd.targets.motor_vehicle",
-      "requirement": "permitted"
+      "requirement": "permitted",
+      "description": "[官方声明] AEB / AES 最高作用速度 130 km/h"
     },
     {
       "element_id": "odd.targets.non_motor_vehicle",
-      "requirement": "permitted",
-      "description": "自行车、摩托车识别"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.targets.pedestrian",
-      "requirement": "permitted"
+      "requirement": "permitted",
+      "description": "[官方声明] 行人识别与主动让行"
     },
     {
       "element_id": "odd.targets.animal",
       "requirement": "permitted",
-      "description": "大型动物（鹿等）识别，小型动物覆盖有限"
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.targets.obstacle",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[推定] 纯视觉方案对小障碍物（<30 cm）识别弱于激光雷达方案"
     },
     {
       "element_id": "odd.weather.atmospheric",
@@ -530,19 +528,17 @@
     {
       "element_id": "odd.weather.atmospheric.rain",
       "requirement": "permitted",
-      "description": "[手册明确] 手册原文「能见度低（暴雨、大雪、浓雾等）或天气条件干扰传感器」时 Autosteer 可能无法按预期运行。无 mm/h 阈值。"
+      "description": "[手册未涉及] 无 mm/h 阈值；纯视觉在暴雨下性能下降"
     },
     {
       "element_id": "odd.weather.atmospheric.snow.snowfall",
-      "requirement": "not_permitted",
-      "description": "[手册明确] 手册同上引述：暴雪导致纯视觉感知退化。",
-      "exit_behavior": "suppress_and_exit"
+      "requirement": "permitted",
+      "description": "[手册未涉及] 手册未量化；积雪覆盖标线会导致退出"
     },
     {
       "element_id": "odd.weather.atmospheric.snow.accumulation",
-      "requirement": "not_permitted",
-      "description": "道路积雪覆盖标线不可用",
-      "exit_behavior": "suppress_and_exit"
+      "requirement": "permitted",
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.weather.atmospheric.special",
@@ -557,8 +553,7 @@
     {
       "element_id": "odd.weather.particles.fog",
       "requirement": "permitted",
-      "description": "[手册明确] 手册「浓雾」同上；无能见度米数阈值。",
-      "parameter_range": "[手册未量化] 仅定性描述"
+      "description": "[手册未涉及] XNGP 社区指南无定量能见度阈值"
     },
     {
       "element_id": "odd.weather.particles.haze",
@@ -582,8 +577,7 @@
     },
     {
       "element_id": "odd.weather.lighting.natural",
-      "requirement": "permitted",
-      "description": "[手册明确] 手册「强光如迎面车灯或阳光直射」干扰摄像头视野。"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.weather.lighting.streetlight",
@@ -591,8 +585,7 @@
     },
     {
       "element_id": "odd.weather.lighting.headlight",
-      "requirement": "permitted",
-      "description": "[手册明确] 夜间依赖车灯；迎面车灯可能干扰摄像头（手册原文）。"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.weather.lighting.indoor",
@@ -602,7 +595,7 @@
     {
       "element_id": "odd.weather.temperature",
       "requirement": "permitted",
-      "description": "[手册明确] 手册「极热或极冷温度」干扰传感器运行。无量化 ℃。"
+      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
     },
     {
       "element_id": "odd.digital.wireless",
@@ -616,8 +609,8 @@
     },
     {
       "element_id": "odd.digital.wireless.v2i",
-      "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "requirement": "not_permitted",
+      "description": "[推定] XNGP 不依赖 V2I（纯车端感知）"
     },
     {
       "element_id": "odd.digital.wireless.v2p",
@@ -636,8 +629,7 @@
     },
     {
       "element_id": "odd.digital.position.gnss",
-      "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "requirement": "permitted"
     },
     {
       "element_id": "odd.digital.position.rtk",
@@ -652,17 +644,16 @@
     {
       "element_id": "personnel.driver.takeover.attention",
       "requirement": "permitted",
-      "description": "[手册明确] 手册原文「Autopilot 激活时，Model Y 显示一系列升级的警告提醒你手握方向盘并注意路况。无响应则 Autopilot 断开并在整个行程剩余时间不可用」。具体秒数未公开（社区观察首次约 30s）。"
+      "description": "[官方声明] 社区指南原文「XNGP 是辅助驾驶功能，驾驶员需始终保持手握方向盘并注意周围路况」。激活前须通过「智驾安全考试」"
     },
     {
       "element_id": "personnel.driver.takeover.other",
       "requirement": "permitted",
-      "description": "[手册未涉及] 该要素在官方手册 / 公开资料中未被明确声明；正是国标 GB/T 45312—2025 相对厂家文档的增量价值点。"
+      "description": "[官方声明] 超车阈值：设定巡航值高于前车速度 10% 时触发自动超车"
     },
     {
       "element_id": "personnel.driver.seatbelt",
-      "requirement": "permitted",
-      "description": "[手册明确] 未系安全带系统不激活（手册默认要求）。"
+      "requirement": "permitted"
     },
     {
       "element_id": "personnel.driver.posture",
@@ -697,12 +688,12 @@
     {
       "element_id": "vehicle.motion.speed.operating",
       "requirement": "permitted",
-      "parameter_range": "[手册明确] 最大巡航速度 150 km/h（90 mph，Autosteer 上限）；超过 80 km/h 时 TACC 不能可靠识别静止车辆；速度牌无法识别时系统限速 70 km/h（45 mph）。"
+      "parameter_range": "[推定] 高速巡航约 100–120 km/h 稳定；按道路限速自适应"
     },
     {
       "element_id": "vehicle.motion.speed.activation",
       "requirement": "permitted",
-      "parameter_range": "[手册明确] Autosteer 最低激活 30 km/h（18 mph，无前车时）；有前车时可在低于 150 km/h（90 mph）任意速度激活（手册 Autosteer 章节）"
+      "parameter_range": "[官方声明] AEB/AES 最高 130 km/h；城市 NGP 新手需累计 50 km 且距首次激活 7 天后解锁全部路段"
     },
     {
       "element_id": "vehicle.motion.acceleration.operating",
@@ -727,16 +718,17 @@
   ],
   "metadata": {
     "submitted_by": "openodc-community",
-    "submitted_at": "2026-04-17T10:00:00Z",
+    "submitted_at": "2026-04-18T10:00:00Z",
     "review_status": "draft",
     "sources": [
-      "Tesla Model Y 车主手册（美国市场 HTML 版）: https://www.tesla.com/ownersmanual/modely/en_us/",
-      "Tesla Model Y 车主手册（北美市场 PDF，软件 2026.2.8）: https://www.tesla.com/ownersmanual/modely/en_us/Owners_Manual.pdf",
-      "Tesla FSD Supervised 产品页: https://www.tesla.com/support/fsd",
-      "Tesla Model Y 手册 · Autopilot 章节: https://www.tesla.com/ownersmanual/modely/en_us/GUID-2CB60804-9CEA-4F4B-8B04-09B991368DC5.html",
-      "Tesla Model Y 手册 · Speed Assist 章节: https://www.tesla.com/ownersmanual/modely/en_us/GUID-5D3D4014-4E98-45D7-8BBC-F76BCA9CEC05.html",
-      "NotATeslaApp · FSD v13.2.9 DMS 更新（2025.14.6）: https://www.notateslaapp.com/software-updates/version/2025.14.6/release-notes"
+      "小鹏汽车官网: https://www.xiaopeng.com",
+      "2026 款 P7+ 产品页: https://www.xiaopeng.com/p7_plus_2026.html",
+      "小鹏图灵 AI 芯片页: https://www.xiaopeng.com/turingaichip.html",
+      "XNGP 快速上手指南（官方社区）: https://bbs.xiaopeng.com/article/2834581",
+      "G6 高速 NGP 上手指南: https://bbs.xiaopeng.com/article/1799825",
+      "P7i 城市 NGP 上手指南: https://bbs.xiaopeng.com/article/1688021",
+      "2026 小鹏全球新品发布会新闻稿: https://www.xiaopeng.com/news/company_news/5529.html"
     ],
-    "notes": "以 Tesla 官方 Model Y 车主手册为主引用，手册多为定性描述，仅少量参数量化。手册明确引用（均见于官方 URL）：FSD 激活速度上限 85 mph (140 km/h)；速度牌无法识别时限速 45 mph (70 km/h)；Autosteer 在 >85 mph 自动取消。Tesla 不公开完整量化 ODD，weather / curvature / gradient 均为 [推定] 或 [手册未涉及]。Tesla 不发布公开版本更新日志（仅车内显示），第三方镜像如 notateslaapp.com 为实际最可靠来源。"
+    "notes": "基于 2026-01-08 小鹏全球新品发布会 + 官方社区上手指南的社区反推。2026款 P7+ / G7 / G9 / G6 Max 搭载 3× 图灵 AI 芯片 2250 TOPS + 第二代 VLA 大模型。L4 初阶能力表述为厂家宣传语，不是准入级别。量化参数：AEB/AES 130 km/h、新手解锁 50 km + 7 天、超车阈值 +10%。大量天气 / 几何 / DMS 时限未公开，标 [手册未涉及]。"
   }
 }

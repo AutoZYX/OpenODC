@@ -1,0 +1,47 @@
+{
+  "odd.road.type.area": {
+    "description": "[官方声明] 武汉经开区+硚口+汉阳+武昌+洪山+东西湖+蔡甸+江夏共 8 区示范运营，覆盖 3000 km²、服务人口约 770 万。实际电子围栏以 Apollo Go APP 内显示为准。"
+  },
+  "odd.road.type.highway.expressway": {
+    "description": "[官方声明] 围栏内部分高速路段，限速 70–80 km/h（第三方公开披露）。"
+  },
+  "odd.weather.atmospheric.rain": {
+    "description": "[官方声明] Apollo Go APP 公示原文「根据法律法规要求，极端天气（大雨、冰雹等）自动驾驶不允许提供服务」。具体 mm/h 阈值未公开。",
+    "parameter_range": "[官方声明] 大雨触发停运；具体阈值未公开"
+  },
+  "odd.weather.atmospheric.snow.snowfall": {
+    "description": "[推定] 武汉冬季少雪，但纳入「极端天气」范畴；暴雪等同停运。",
+    "exit_behavior": "suppress_activation"
+  },
+  "odd.weather.atmospheric.special": {
+    "description": "[官方声明] Apollo Go APP 原文「冰雹等极端天气不允许提供服务」。",
+    "exit_behavior": "suppress_and_exit"
+  },
+  "odd.weather.lighting.headlight": {
+    "description": "[官方声明] 2024-03 起武汉部分区域 7×24 小时运营，夜间可叫车（Apollo Go APP 公告）。"
+  },
+  "odd.digital.wireless.v2i": {
+    "description": "[官方声明] 武汉已建成 123 km 车路协同测试道路，萝卜快跑是国内首个大规模采用车端 5G OBU + 北斗 RTK 融合方案的示范区（武汉市智能网联汽车发展促进条例）。"
+  },
+  "odd.digital.position.gnss": {
+    "description": "[官方声明] 北斗 + GPS 多模组融合（Apollo Day 2024）。"
+  },
+  "odd.digital.position.rtk": {
+    "description": "[官方声明] 北斗 RTK 高精度定位为基础设施必需；是运营区域 V2X 基础能力的一部分。"
+  },
+  "personnel.driver.takeover.attention": {
+    "description": "[官方声明] WEDA 管理规则「应配备现场随行安全员或远程安全员；安全员负责监控车辆运行状态和周围环境，能够直接接管或从云端接管车辆」。武汉无人车「驾驶员」为远程安全员角色。"
+  },
+  "personnel.driver.takeover.other": {
+    "description": "[官方声明] 武汉市智能网联汽车发展促进条例「车辆故障或影响道路交通安全时，远程安全员应开启危险警示灯、降低车速、行驶至不妨碍交通的地方停放」（MRM 机制）。"
+  },
+  "personnel.passenger.other": {
+    "description": "[官方声明] Apollo Go APP 公示「未满 18 周岁需监护人陪同；14 周岁以下及 70 周岁以上暂不支持叫车；乘车前需完成实名认证」。"
+  },
+  "vehicle.ads_state": {
+    "description": "[官方声明] WEDA 规则「具备冗余系统，确保系统故障时立即转为最小风险运行模式；具备状态记录、存储及在线监控功能」。"
+  },
+  "vehicle.other_systems": {
+    "description": "[官方声明] WEDA 要求运营方具备不低于 300 万元人民币一般责任保险；通行路线、时间须向政府主管部门报备。"
+  }
+}
