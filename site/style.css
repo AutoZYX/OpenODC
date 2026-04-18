@@ -1112,6 +1112,22 @@ details[open] > .group-summary::before { transform: rotate(90deg); }
   line-height: 1.6;
 }
 
+.doc-card-coverage {
+  margin: 0.6rem 0 0.8rem;
+  padding: 0.5rem 0.7rem;
+  background: var(--bg-alt);
+  border-radius: 4px;
+}
+.cov-label { font-size: 0.85rem; color: var(--ink); margin-bottom: 0.35rem; }
+.cov-label strong { color: var(--accent-deep); font-weight: 600; }
+.cov-label .cov-sub { color: var(--ink-mute); font-size: 0.82rem; }
+.cov-bar { display: flex; height: 6px; border-radius: 2px; overflow: hidden; }
+.cov-bar .seg { display: block; }
+.cov-bar .seg-manual { background: #2d6a3a; }
+.cov-bar .seg-inferred { background: #8a6e1d; }
+.cov-bar .seg-gap { background: #8a8580; }
+.cov-bar .seg-structural { background: #c9b9ad; }
+
 .card-phase-tag {
   margin-left: 0.5rem;
   font-size: 0.72rem;
@@ -1120,6 +1136,25 @@ details[open] > .group-summary::before { transform: rotate(90deg); }
   color: var(--accent-deep);
   border-radius: 3px;
   letter-spacing: 0.02em;
+}
+
+/* Editor workbench banner */
+.editor-workbench-banner {
+  background: #faefe5;
+  border-bottom: 1px solid var(--line);
+  padding: 0.7rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+.editor-workbench-banner .wb-dot { color: var(--accent); font-size: 0.8em; }
+.editor-workbench-banner .wb-msg { flex: 1; }
+.editor-workbench-banner .wb-back {
+  color: var(--accent);
+  font-size: 0.88rem;
+  white-space: nowrap;
 }
 
 /* Vendor Workbench */

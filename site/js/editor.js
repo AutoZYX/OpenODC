@@ -1,8 +1,8 @@
 import {
-  loadCatalog, loadDocument,
+  loadCatalog, loadDocument, loadManifest,
   buildElementIndex,
   requirementLabel, exitBehaviorLabel, adsLevelLabel, reviewStatusLabel,
-  el, downloadBlob
+  el, downloadBlob, getQueryParam
 } from './common.js'
 
 const STORAGE_KEY = 'openodc-editor-draft-v1'
@@ -331,11 +331,51 @@ function toMarkdownSummary(doc) {
   return md
 }
 
+async function maybeLoadFromQuery() {
+  const loadId = getQueryParam('load')
+  if (loadId) {
+    try {
+      const manifest = await loadManifest()
+      const entry = manifest.documents.find(d => d.id === loadId)
+      if (!entry) { console.warn('load id not found:', loadId); return false }
+      const doc = await loadDocument(entry.file)
+      importFromDoc(doc)
+      showWorkbenchBanner(`已从样例库加载「${doc.vendor} · ${doc.function_name}」作为起点`, getQueryParam('workbench_vendor'), getQueryParam('workbench_fn'))
+      return true
+    } catch (e) { console.warn('load failed:', e); return false }
+  }
+
+  const wbVendor = getQueryParam('workbench_vendor')
+  const wbFn = getQueryParam('workbench_fn')
+  if (wbVendor && wbFn) {
+    // Prefill blank editor with workbench function metadata
+    state.meta.vendor = decodeURIComponent(getQueryParam('wb_vendor_name') || '')
+    state.meta.function_name = decodeURIComponent(getQueryParam('wb_fn_name') || '')
+    state.meta.model = decodeURIComponent(getQueryParam('wb_model') || '')
+    const lvl = getQueryParam('wb_level')
+    if (lvl) state.meta.ads_level = parseInt(lvl, 10) || 2
+    showWorkbenchBanner('从厂家直填工作台进入。已预填厂家 / 车型 / 功能名；请在左侧层级树勾选 ODC 要素。', wbVendor, wbFn)
+    return true
+  }
+  return false
+}
+
+function showWorkbenchBanner(msg, vendor, fn) {
+  const banner = el('div', { class: 'editor-workbench-banner' }, [
+    el('span', { class: 'wb-dot' }, '●'),
+    el('span', { class: 'wb-msg' }, msg),
+    vendor && fn ? el('a', { class: 'wb-back', href: '/workbench.html' }, '← 返回工作台') : null
+  ])
+  const main = document.querySelector('main')
+  if (main) main.insertBefore(banner, main.firstChild)
+}
+
 ;(async () => {
   try {
     catalog = await loadCatalog()
     elementIndex = buildElementIndex(catalog)
     bindMetaInputs()
+    await maybeLoadFromQuery()
     renderTree('')
     renderSelected()
     renderPreview()

@@ -15,8 +15,21 @@ const siteExamplesDir = join(repoRoot, 'site', 'data', 'examples')
 
 // 1. Build manifest of example documents
 const files = readdirSync(examplesDir).filter(f => f.endsWith('.json'))
+
+function classifyCoverage(description) {
+  if (!description) return 'curated'
+  if (description.includes('[手册未涉及]')) return 'gap'
+  if (description.includes('[结构性类别]')) return 'structural'
+  if (description.includes('[手册明确]')) return 'manual'
+  if (description.includes('[推定]')) return 'inferred'
+  return 'curated'
+}
+
 const documents = files.map(f => {
   const doc = JSON.parse(readFileSync(join(examplesDir, f), 'utf8'))
+  const coverage = { manual: 0, inferred: 0, curated: 0, gap: 0, structural: 0 }
+  for (const e of doc.elements || []) coverage[classifyCoverage(e.description)]++
+  const substantive = coverage.manual + coverage.curated + coverage.inferred
   return {
     id: doc.id,
     file: `data/examples/${f}`,
@@ -32,7 +45,10 @@ const documents = files.map(f => {
     review_status: doc.metadata?.review_status || 'draft',
     element_count: (doc.elements || []).length,
     permitted_count: (doc.elements || []).filter(e => e.requirement === 'permitted').length,
-    not_permitted_count: (doc.elements || []).filter(e => e.requirement === 'not_permitted').length
+    not_permitted_count: (doc.elements || []).filter(e => e.requirement === 'not_permitted').length,
+    coverage,
+    coverage_substantive: substantive,
+    coverage_total: doc.elements?.length || 0
   }
 })
 

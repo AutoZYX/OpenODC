@@ -217,7 +217,18 @@ function newFunction(vendorId) {
 }
 
 function openEditor(vendorId, fn) {
-  alert(`[演示] 打开 ODC 编辑器\n\n厂家：${VENDOR_LABELS[vendorId]}\n功能：${fn.name}\n当前状态：${STATUS_META[fn.status]?.label}\n\n正式版本将：\n1. 打开共享编辑器，自动加载本功能的 ODC 草稿\n2. 支持多人协作（类似 Figma）+ 字段级评论\n3. 集成手册 PDF 左右分屏：左侧国标要素，右侧手册对照段落\n\n当前版本可以通过 /editor.html 手动创建，本页不做自动跳转以免丢失本地数据。`)
+  const params = new URLSearchParams()
+  if (fn.public_id) {
+    // Has a published sample — load it as the starting point
+    params.set('load', fn.public_id)
+  }
+  params.set('workbench_vendor', vendorId)
+  params.set('workbench_fn', fn.id)
+  if (fn.name) params.set('wb_fn_name', encodeURIComponent(fn.name))
+  if (fn.model) params.set('wb_model', encodeURIComponent(fn.model))
+  if (fn.ads_level) params.set('wb_level', String(fn.ads_level))
+  params.set('wb_vendor_name', encodeURIComponent(VENDOR_LABELS[vendorId] || vendorId))
+  window.location.href = '/editor.html?' + params.toString()
 }
 
 function publishFunction(vendorId, fn) {
